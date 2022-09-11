@@ -1,0 +1,168 @@
+.AboutMe {
+  box-sizing: border-box;
+  padding: 110px 70px 125px;
+}
+
+.AboutMe__student {
+  width: 100%;
+  border-bottom: 1px solid black;
+
+  margin: 0;
+  padding-bottom: 23px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+}
+
+.AboutMe__avatar {
+  background-image: url(../../images/avatar.jpg);
+  background-position: center;
+  background-size: cover;
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.AboutMe__about {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 65px;
+}
+
+.AboutMe__text {
+  max-width: 600px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.AboutMe__name {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  margin: 0 0 18px;
+}
+
+.AboutMe__job {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0 0 26px;
+}
+
+.AboutMe__description {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0 0 auto;
+}
+
+.AboutMe__links {
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+}
+
+.AboutMe__link {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: black;
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.AboutMe__link:hover {
+  opacity: 0.7;
+}
+
+
+
+@media screen and (max-width: 769px) {
+  .AboutMe {
+    padding: 90px 50px;
+  }
+
+
+  .AboutMe__avatar {
+    width: 255px;
+    height: 307px;
+  }
+
+  .AboutMe__text {
+    max-width: 344px;
+  }
+
+  .AboutMe__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .AboutMe__job {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .AboutMe__description {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 40px;
+  }
+}
+
+
+@media screen and (max-width: 650px) {
+  .AboutMe {
+    padding: 70px 14px;
+  }
+
+  
+  .AboutMe__about {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    row-gap: 40px;
+  }
+
+  .AboutMe__avatar {
+    width: 292px;
+    height: 352px;
+    order: 1;
+  }
+
+  .AboutMe__text {
+    max-width: 100%;
+    width: 100%;
+    order: 2;
+  }
+
+  .AboutMe__name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .AboutMe__job {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .AboutMe__description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
