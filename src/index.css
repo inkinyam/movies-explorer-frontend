@@ -1,12 +1,15 @@
-/*импорт вендоров*/
+/*____________________________ВЕНДОРЫ____________________________*/
 @import url(../src/vendors/normalize.css);
 @import url(../src/vendors/fonts.css);
 
-/*стили для страницы "стандартные*/
-@import url(../src/config/styles.css);
 
 /*____________________________КОМПОНЕНТЫ____________________________*/
 @import url(../src/components/App/App.css);
+@import url(../src/components/SectionTitle/SectionTitle.css);
+
+@import url(../src/components/Promo/Promo.css);
+@import url(../src/components/AboutProject/AboutProject.css);
+@import url(../src/components/Techs/Techs.css);
 @import url(../src/components/AboutMe/AboutMe.css);
 @import url(../src/components/Portfolio/Portfolio.css);
 @import url(../src/components/Footer/Footer.css);
