@@ -1,5 +1,7 @@
 import React from 'react';
 //import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import Header from '../Header/Header';
+import Navigation from '../Navigation/Navigation';
 import Promo from '../Promo/Poromo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
@@ -13,6 +15,8 @@ const App = () => {
   return (
  
       <div className="app">
+        <Header />
+        <Navigation />
         <Promo />
         <AboutProject />
         <Techs />
