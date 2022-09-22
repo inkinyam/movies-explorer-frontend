@@ -7,8 +7,8 @@ const Header = () => {
       <div className="header__containter">
          <img src={MainLogo} alt="" className="header__logo" />
          <div className='header__link-box'>
-          <Link to="/register" className="header__link header__link_v_register">Регистрация</Link>
-          <Link to="/login" className="header__link header__link_v_login">Войти</Link>
+          <Link to="/sign-up" className="header__link header__link_v_register">Регистрация</Link>
+          <Link to="/sign-in" className="header__link header__link_v_login">Войти</Link>
         </div>
       </div>
     </header>

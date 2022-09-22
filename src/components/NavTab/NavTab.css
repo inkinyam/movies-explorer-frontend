@@ -1,0 +1,161 @@
+.navtab {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .3);
+}
+
+
+.navtab__container {
+  margin: 0 0 0 auto;
+  width: 0;
+  max-width: 520px;
+  height: 100%;
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 22px 22px 90px;
+  transition: width 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.navtab_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.navtab_opened .navtab__container {
+  width: 80%;
+}
+
+.navtab__exit {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 22px;
+  height: 22px;
+  background-image: url(../../images/exit-button.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-self: flex-end;
+  opacity: 1;
+  transition: opacity 0.2s ease-in
+}
+
+.navtab__exit:hover {
+  opacity: 0.8;
+}
+
+.navtab__title {
+  max-width: 100%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 105px 0 58px;
+}
+
+.navtab__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.navtab__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  margin-bottom: 26px;
+}
+
+.navtab__link:last-of-type{
+  margin-bottom: 0;
+}
+
+.navtab__link::after {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  content: '';
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width .3s ease-in;
+  opacity: 0;
+}
+
+.navtab__link:hover::after {
+  width: 100%;
+  opacity: 0.8;
+}
+
+.navtab__link:hover {
+  opacity: 0.8;
+}
+
+.navtab__link_active.navtab__link::after {
+  width: 100%;
+  opacity: 1;
+  background-color: black;
+}
+
+.navtab__link_active {
+  position: relative;
+}
+
+.navtab__link_active:hover.navtab__link::after {
+  width: 0;
+  opacity: 1;
+  background-color: rgb(65, 65, 65);
+}
+
+.navtab__acc {
+  margin: auto 0 0 0;
+  width: 100px;
+  height: 32px;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: #F9F9F9;
+  color: black;
+  border-radius: 20px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  opacity: 1;
+  transition: opacity .2s ease-in;
+}
+
+.navtab__acc:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 376px) {
+  .navtab_opened .navtab__container  {
+    width: 100%;
+  }
+  
+  .navtab__link {
+    text-align: center;
+  }
+}

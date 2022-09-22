@@ -1,27 +1,39 @@
 import React from 'react';
-//import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-import Header from '../Header/Header';
-import Navigation from '../Navigation/Navigation';
-import Promo from '../Promo/Poromo';
-import AboutProject from '../AboutProject/AboutProject';
-import Techs from '../Techs/Techs';
-import AboutMe from '../AboutMe/AboutMe';
-import Footer from '../Footer/Footer';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 
 
 const App = () => {
+  const [loggedIn, handleLogin]  = React.useState(true); 
+
+  const setLoginTrue = () => {
+    handleLogin(true);
+  }
   
 /* возвращаемый объект */
   return (
- 
+   
       <div className="app">
-        <Header />
-        <Navigation />
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Footer />
+         <Routes> 
+            <Route path="/sign-up" element = {<Register /> } /> 
+            <Route path="/sign-in" element = {<Login /> } /> 
+            <Route  path="/" element = {<Main/>} />
+
+            <Route  path="/" element = { <ProtectedRoute loggedIn={loggedIn} />} >
+               <Route  path="/movies" element = {<Movies />} />    
+               <Route  path="/savedmovies" element = {<SavedMovies />} />                   
+               <Route  path="/profile" element = {<Profile />} />                 
+            </Route>
+           
+            <Route path="*" element = {<Navigate to="/" />} />
+
+        </Routes>
       </div>
 
   );
