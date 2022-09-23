@@ -1,4 +1,4 @@
-import MainLogo from '../../images/main-logo.png';
+import MainLogo from '../../images/main-logo.svg';
 import NavTab from '../NavTab/NavTab';
 import React from 'react';
 import { NavLink } from 'react-router-dom';

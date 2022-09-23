@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Register from '../Register/Register';
 import Login from '../Login/Login';

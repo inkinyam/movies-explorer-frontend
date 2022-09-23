@@ -1,0 +1,70 @@
+.movieCard {
+  display: flex;
+  flex-direction: column;
+  background: #FDFDFD;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+
+  width: 100%;
+  height: fit-content;
+}
+
+.movieCard__info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  padding: 14px;
+}
+
+.movieCard__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.movieCard__title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;  
+  margin: 0 0 9px;
+}
+
+.movieCard__time-info {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #A0A0A0;
+  margin: 0;
+}
+
+.movieCard__save {
+  width: 30px;
+  height: 30px;
+
+  background-image: url(../../images/savebutton-unactive.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.movieCard__save_active {
+  background-image: url(../../images/savebutton-active.svg);
+}
+
+.movieCard__img {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(172, 172, 172);
+
+  max-height: 203px;
+  object-fit: cover;
+  object-position: center;
+}
