@@ -1,9 +1,12 @@
 import MainLogo from '../../images/main-logo.png';
 import NavTab from '../NavTab/NavTab';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
+  //проверяем активна ли ссылка, если да, добавляем ей "активный" класс
+  const classNames = ({isActive}) => isActive ? 'navigation__link navigation__link_active' : 'navigation__link';
+
   const [isNavTabOpened, openNavTab] = React.useState(false);
 
   const handleOpenNavTab = () => {
@@ -17,11 +20,12 @@ const Navigation = () => {
 
   return (
     <nav className="navigation">
-       <img src={MainLogo} alt="" className="" />
+      <NavLink to="/" ><img src={MainLogo} alt="" className="" /></NavLink>
+       
        <div className="navigation__links">
-        <Link to="/all" className="navigation__link">Фильмы</Link>
-        <Link to="/all" className="navigation__link">Сохраненные фильмы</Link>
-        <button className='navigation__acc'>Аккаунт</button>
+        <NavLink to="/movies" className={classNames}>Фильмы</NavLink>
+        <NavLink to="/savedmovies" className={classNames}>Сохраненные фильмы</NavLink>
+        <NavLink to="/profile" className='navigation__acc'>Аккаунт</NavLink>
       </div>
       <button className='navigation__burger' onClick={handleOpenNavTab}>
         <span className="navigation__burger-top"></span>

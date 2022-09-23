@@ -42,12 +42,15 @@
   padding: 0;
   margin-left: auto;
 
-  border: none;
-  outline: none;
+  display: flex ;
+  justify-content: center;
+  align-items: center;
   background-color: #F9F9F9;
   border-radius: 20px;
 
   font-style: normal;
+  text-decoration: none;
+  color: #000;
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
@@ -72,6 +75,7 @@
   justify-content: center;
   align-items: center;
   margin-left: auto;
+  transition: opacity .3s ease-in;
 }
 
 
@@ -84,24 +88,10 @@
   transition: 1s; 
 }
 
-
-.navigation__burger_active span{
-  width: 24px;
-  z-index: 3;
+.navigation__burger:hover{
+  opacity: .7;
 }
 
-.navigation__burger_active .navigation__burger-top{
-  transform: translateY(12px) rotate(45deg);
-}
-
-.navigation__burger_active .navigation__burger-middle{
-  border: none;
-  background-color:transparent;
-}
-
-.navigation__burger_active .navigation__burger-bottom{
-  transform: translateY(-2px) rotate(-45deg);
-}
 
 @media screen and (max-width: 770px) {
   .portfolio__link {

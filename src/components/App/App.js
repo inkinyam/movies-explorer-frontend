@@ -7,6 +7,7 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import NotFound from '../NotFound/NotFound';
 
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
                <Route  path="/profile" element = {<Profile />} />                 
             </Route>
            
-            <Route path="*" element = {<Navigate to="/" />} />
+            <Route path="*" element = {<NotFound />} />
 
         </Routes>
       </div>

@@ -1,5 +1,5 @@
 const Login = () => {
-  return ("hi!")
+  return ("вводи логин и пароль!!")
 };
 
 export default Login;

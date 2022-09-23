@@ -1,5 +1,5 @@
 const Profile = () => {
-  return ("hi!")
+  return ("profile!")
 };
 
 export default Profile;

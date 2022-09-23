@@ -1,6 +1,6 @@
 
 const Register = () => {
-  return ("hi!")
+  return ("регистрируйся!!")
 };
 
 export default Register;

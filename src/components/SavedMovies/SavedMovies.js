@@ -1,5 +1,5 @@
 const SavedMovies = () => {
-  return ("hi!")
+  return ("hi from savedmovies!")
 };
 
 export default SavedMovies;

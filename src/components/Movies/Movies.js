@@ -1,12 +1,5 @@
-import Navigation from "../Navigation/Navigation";
-
 const Movies = () => {
-  return (  
-  <>
-    <Navigation></Navigation>
-  </>
-  
-  )
+  return ( 'hello from movies'  )
 };
 
 export default Movies;

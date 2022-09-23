@@ -1,8 +1,12 @@
 import React from 'react';
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ loggedIn, children }) => {
-  return loggedIn ? <Outlet/> : <Navigate to='/sign-in' />;
+import AppLayout from '../AppLayout/AppLayout';
+
+const ProtectedRoute = ({ loggedIn }) => {
+  return loggedIn ? <AppLayout/> : <Navigate to='/sign-in' />;
 };
 
 export default ProtectedRoute;
+
+
