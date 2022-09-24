@@ -15,9 +15,9 @@
 
 ### Проект можно увидеть по ссылке:
 
-GitHub Pages: `какой-то-там адрес`
+GitHub Pages: `https://inkinyam.github.io/movies-explorer-frontend/`
 
-Проект доступен по адресу: `movies.inkinyam.nomoredomains.sbs`
+Проект **будет** доступен по адресу: `movies.inkinyam.nomoredomains.sbs`
 
 ### Инструменты, используемые в работы:
 
