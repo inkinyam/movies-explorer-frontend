@@ -55,7 +55,12 @@
   font-size: 14px;
   line-height: 16px;
   opacity: 1;
-  transition: opacity .2s ease-in;
+  transition: opacity, border .2s ease-in;
+}
+
+.navigation__acc_active {
+  box-sizing: border-box;
+  border: 1px solid rgba(92, 92, 92, .5);
 }
 
 .navigation__acc:hover{
@@ -110,7 +115,12 @@
   .navigation__burger {
     display: flex;
   }
-  
-  
+}
 
+
+
+@media screen and (max-width: 380px) {
+  .navigation__burger span{
+    width: 22px;
+  }
 }

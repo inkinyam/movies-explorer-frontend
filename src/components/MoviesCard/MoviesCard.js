@@ -20,7 +20,7 @@ const stateButtonSaveClass = (`movieCard__save  ${isSaved ? 'movieCard__save_act
         </div>
         <button className={stateButtonSaveClass} onClick={handleSaveButtonClick}></button>
       </div>
-      <img className="movieCard__img" src={moviepick} alt="moviename"></img>
+      <img className="movieCard__img" src={moviepick} alt="moviepick"></img>
     </div>
   );
 }

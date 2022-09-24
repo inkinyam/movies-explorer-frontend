@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 //проверяем активна ли ссылка, если да, добавляем ей "активный" класс
-const classNames = ({isActive}) => isActive ? 'navtab__link navtab__link_active' : 'navtab__link';
+const linkClassNames = ({isActive}) => isActive ? 'navtab__link navtab__link_active' : 'navtab__link';
+const accountClassNames = ({isActive}) => isActive ? 'navtab__acc navtab__acc_active' : 'navtab__acc';
 
 const NavTab = ({isOpen, onClose}) => {
   return (
@@ -9,9 +10,9 @@ const NavTab = ({isOpen, onClose}) => {
       <button className='navtab__exit ' onClick={onClose}></button>
         <h2 className="navtab__title">Главная</h2>
         <div className="navtab__links">
-          <NavLink to="/movies" className={classNames}>Фильмы</NavLink>
-          <NavLink to="/savedmovies" className={classNames}>Сохраненные фильмы</NavLink>
-          <NavLink to="/profile" className='navtab__acc'>Аккаунт</NavLink>
+          <NavLink to="/movies" className={linkClassNames}>Фильмы</NavLink>
+          <NavLink to="/savedmovies" className={linkClassNames}>Сохраненные фильмы</NavLink>
+          <NavLink to="/profile" className={accountClassNames}>Аккаунт</NavLink>
         </div>
       </div>
     </div>

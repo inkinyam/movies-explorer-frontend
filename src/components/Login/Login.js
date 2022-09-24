@@ -9,12 +9,12 @@ const Login = () => {
 
       <form className='auth__form'>
         <label className='auth__label'  htmlFor='email'>E-mail</label>
-        <input type="email" className="auth__input" id="email"></input>
+        <input type="email" className="auth__input" id="email" placeholder='введите e-mail'></input>
         <span className="auth__err auth__err-email">что-то пошло не так...</span>
 
 
         <label className='auth__label' htmlFor='password'>Имя</label>
-        <input type="password" className="auth__input" id="password"></input>
+        <input type="password" className="auth__input" id="password" placeholder='введите пароль'></input>
         <span className="auth__err auth__err-password auth__err_shown">что-то пошло не так...</span>
      
         <button className="auth__submit">Зарегистрироваться</button>

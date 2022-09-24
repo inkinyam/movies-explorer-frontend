@@ -5,11 +5,11 @@ const Profile = () => {
 
       <form className="profile__form">
         <div className="profile__form-block">
-          <input className="profile__input" type="text" id="profileName" />
+          <input className="profile__input" type="text" id="profileName" placeholder='введите имя'/>
           <label className="profile__label" htmlFor="profileName">Имя</label>
         </div>
         <div className="profile__form-block">
-          <input className="profile__input" type="text" id="profileEmail" />
+          <input className="profile__input" type="text" id="profileEmail" placeholder='введите имя'/>
           <label className="profile__label"  htmlFor="profileEmail">E-mail</label>
         </div>
       </form>

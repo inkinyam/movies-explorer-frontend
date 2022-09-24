@@ -62,6 +62,10 @@
   background-color: rgba(43, 224, 128, .1);
 }
 
+.auth__input_wrong {
+  color:#EE3465
+}
+
 .auth__err {
   opacity: 0;
   height: 12px;
