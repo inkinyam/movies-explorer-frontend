@@ -8,9 +8,10 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
-
+import { CurrentUserContext } from '../context/CurrentUserContext.js'; 
 
 const App = () => {
+  const currentUser = React.useContext(CurrentUserContext);
   const [loggedIn, handleLogin]  = React.useState(true); 
 
   const setLoginTrue = () => {
