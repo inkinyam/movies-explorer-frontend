@@ -4,6 +4,7 @@
   justify-content: center;
 
   width: 90%;
+  height: calc( 100vh - 74px );
   max-width: 1140px;
   margin: 0 auto;
 
@@ -22,7 +23,8 @@
 .profile__form {
   max-width: 410px;
   width: 100%;
-  margin: 123px auto 220px;
+  height: 100%;
+  margin: 123px auto auto;
 
 }
 
@@ -47,10 +49,11 @@
   line-height: 13px;
   margin: 0;
   order: 1;
+  transition: color .2s ease-in;
 }
 
 .profile__input {
-  width: 90%;
+  width: 85%;
   height: 100%;
   border: none;
   outline: none;
@@ -60,6 +63,7 @@
   line-height: 13px;
   text-align: right;
   order: 2;
+
 }
 
 .profile__input:focus~.profile__label {
@@ -85,4 +89,11 @@
 .profile__button:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .profile {
+    padding: 70px 0 40px;
+  }
+  
 }

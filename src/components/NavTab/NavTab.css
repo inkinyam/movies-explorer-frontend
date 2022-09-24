@@ -151,12 +151,16 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 500px) {
   .navtab_opened .navtab__container  {
     width: 100%;
   }
   
   .navtab__link {
     text-align: center;
+  }
+
+  .navtab__container {
+    padding: 13px 13px 46px;
   }
 }
