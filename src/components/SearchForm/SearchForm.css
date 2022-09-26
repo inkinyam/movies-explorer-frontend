@@ -167,6 +167,10 @@
     text-align: left;
   }
 
+  .searchigForm__input:focus {
+    background-image: none;
+  }
+
   .searchigForm__input::placeholder {
     font-size: 18px;
     line-height: 22px;

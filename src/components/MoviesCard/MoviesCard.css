@@ -55,8 +55,12 @@
   background-color: transparent;
 }
 
-.movieCard__save_active {
+.movieCard__save_saved {
   background-image: url(../../images/savebutton-active.svg);
+}
+
+.movieCard__save_delete {
+  background-image: url(../../images/savebutton-delete.svg);
 }
 
 .movieCard__img {

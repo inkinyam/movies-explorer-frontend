@@ -45,7 +45,7 @@
   background-color: transparent;
   width: 22px;
   height: 22px;
-  background-image: url(../../images/exit-button.png);
+  background-image: url(../../images/exit-button.svg);
   background-repeat: no-repeat;
   background-size: cover;
   align-self: flex-end;
@@ -55,6 +55,7 @@
 
 .navtab__exit:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .navtab__title {

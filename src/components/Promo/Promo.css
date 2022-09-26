@@ -16,7 +16,7 @@
 
 .promo__info {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: space-between;
   margin: 0 auto 84px;
   width: 100%;
