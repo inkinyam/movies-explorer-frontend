@@ -9,19 +9,19 @@ const Register = () => {
 
       <form className='auth__form'>
         <label className='auth__label' htmlFor='name'>Имя</label>
-        <input type="text" className="auth__input" id="name" placeholder='введите имя'></input>
+        <input type="text" className="auth__input" id="name" placeholder='введите имя' required minLength="2" maxlength="30"></input>
         <span className="auth__err auth__err-name ">что-то пошло не так...</span>
    
         <label className='auth__label'  htmlFor='email'>E-mail</label>
-        <input type="email" className="auth__input" id="email" placeholder='введите e-mail'></input>
+        <input type="email" className="auth__input" id="email" placeholder='введите e-mail' required></input>
         <span className="auth__err auth__err-email">что-то пошло не так...</span>
 
 
         <label className='auth__label' htmlFor='password'>Пароль</label>
-        <input type="password" className="auth__input auth__input_wrong" id="password" placeholder='введите пароль'></input>
+        <input type="password" className="auth__input auth__input_wrong" id="password" placeholder='введите пароль' required></input>
         <span className="auth__err auth__err-password auth__err_shown">что-то пошло не так...</span>
      
-        <button className="auth__submit">Зарегистрироваться</button>
+        <button type="submit" className="auth__submit">Зарегистрироваться</button>
         <p className='auth__advice'>Уже зарегистрированы? <Link className='auth__link' to="/sign-in">Войти</Link></p>
       </form>
 

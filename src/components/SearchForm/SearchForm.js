@@ -4,13 +4,13 @@ const SearchFrom = () => {
 const [isChecked, onClickCheckbox] = React.useState(true);
 
 const handleClickCheckbox = () => {
-  onClickCheckbox(isChecked);
+  onClickCheckbox(!isChecked);
 } 
 
   return (
     <form className="searchingForm">
-      <input className="searchigForm__input" placeholder="Фильм"></input>
-      <button className="searchigForm__submit"></button>
+      <input className="searchigForm__input" placeholder="Фильм" required minLength="2"></input>
+      <button type="submit" className="searchigForm__submit"></button>
 
        <div  className="searchigForm__toggler">
           <input type="checkbox" className="searchigForm__checkbox" onClick={handleClickCheckbox}  id="shortmovie" />

@@ -53,6 +53,13 @@
   border: none;
   outline: none;
   background-color: transparent;
+
+  transition: opacity .2s ease-in;
+}
+
+.movieCard__save:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .movieCard__save_saved {

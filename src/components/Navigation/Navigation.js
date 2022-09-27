@@ -28,7 +28,7 @@ const Navigation = () => {
         <NavLink to="/savedmovies" className={linkClassNames}>Сохраненные фильмы</NavLink>
         <NavLink to="/profile" className={buttonClassNames}>Аккаунт</NavLink>
       </div>
-      <button className='navigation__burger' onClick={handleOpenNavTab}>
+      <button type="buton" className='navigation__burger' onClick={handleOpenNavTab}>
         <span className="navigation__burger-top"></span>
         <span className="navigation__burger-middle"></span>
         <span className="navigation__burger-bottom"></span>

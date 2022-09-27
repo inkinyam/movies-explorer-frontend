@@ -66,9 +66,10 @@
 .searchigForm__submit:hover {
   opacity: 0.8;
   cursor: pointer;
-  
 }
 
+
+/*чекбокс*/
 .searchigForm__toggler {
   position: relative;
   top: 50%;
@@ -94,6 +95,7 @@
 
 .searchigForm__toggler:hover .searchingForm__toggler-description {
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .searchigForm__checkbox {

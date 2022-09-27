@@ -15,9 +15,9 @@ const AboutMe = () => {
           Я долго работала менеджером в различных компаниях, в прошлом году я начала учиться на веб-разработчика. На данный момент я закончила обучение и работаю в Институте Генплана Москвы фронтэнд-разработчиком.</p>
           
           <div className="aboutMe__links">
-            <a href="https://github.com/inkinyam" className="aboutMe__link">GitHub</a>
-            <a href="https://vk.com/i_n_k_i" className="aboutMe__link">VK</a>
-            <a href="https://www.instagram.com/i_n_k_i_/" className="aboutMe__link">Instagramm</a>
+            <a target="_blank" rel="noreferrer" href="https://github.com/inkinyam" className="aboutMe__link">GitHub</a>
+            <a target="_blank" rel="noreferrer" href="https://vk.com/i_n_k_i" className="aboutMe__link">VK</a>
+            <a target="_blank" rel="noreferrer" href="https://www.instagram.com/i_n_k_i_/" className="aboutMe__link">Instagramm</a>
           </div>
         </div>
         <div className='aboutMe__avatar'></div>

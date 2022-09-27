@@ -2,25 +2,26 @@ import moviepick from '../../images/pic2.jpg'
 import React from 'react';
 
 
-const MoviesCard = () => {
-const [isSaved, onSaveMovie] = React.useState(false);
-  
-const handleSaveButtonClick = () => {
-  onSaveMovie (!isSaved);
-}
+const MoviesCard = ({onMovieSave, onMovieUnsave, movie, key, savedMoviesStatus}) => {
+ 
 
-const stateButtonSaveClass = (`movieCard__save  ${isSaved ? 'movieCard__save_saved' : ''}`); 
+function handleMovieUnsave() {
+  onMovieUnsave(movie);
+}
+function handleMovieSave() {
+  onMovieSave(movie);
+}
   
   return  (
-    <div className="movieCard">
+    <div className="movieCard" key={key} id={movie._id}>
       <div className="movieCard__info">
         <div className="movieCard__text">
-          <h3 className="movieCard__title">33 минуты счастья</h3>
-          <p className="movieCard__time-info"> 1ч 33 мин</p>
+          <h3 className="movieCard__title">{movie.nameRu}</h3>
+          <p className="movieCard__time-info">{movie.duration}</p>
         </div>
-        <button type="button" className={stateButtonSaveClass} onClick={handleSaveButtonClick}></button>
+        <button type="button" className={savedMoviesStatus? 'movieCard__save movieCard__save_saved' : 'ovieCard__save movieCard__save_delete'} onClick={savedMoviesStatus? handleMovieUnsave : handleMovieSave}></button>
       </div>
-      <img className="movieCard__img" src={moviepick} alt="moviepick"></img>
+      <img className="movieCard__img" src={movie.image} alt={movie.nameRu}></img>
     </div>
   );
 }

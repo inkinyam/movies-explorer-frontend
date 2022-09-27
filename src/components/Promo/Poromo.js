@@ -13,7 +13,7 @@ const Promo = () => {
            <img src={Logo} alt="logo" className="promo__logo-img"></img>
           </div>
         </div>
-        <button className="promo__btn">Узнать больше</button>
+        <button type="button" className="promo__btn">Узнать больше</button>
       </div>
     </section>
   )
