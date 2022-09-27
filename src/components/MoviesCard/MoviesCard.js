@@ -1,9 +1,6 @@
-import moviepick from '../../images/pic2.jpg'
 import React from 'react';
 
-
 const MoviesCard = ({onMovieSave, onMovieUnsave, movie, key, savedMoviesStatus}) => {
- 
 
 function handleMovieUnsave() {
   onMovieUnsave(movie);
