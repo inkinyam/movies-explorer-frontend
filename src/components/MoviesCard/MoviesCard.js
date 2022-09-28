@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MoviesCard = ({ onMovieSave, onMovieUnsave, movie,  savedMoviesStatus}) => {
+const MoviesCard = ({onMovieSave, onMovieUnsave, movie,  savedMoviesStatus}) => {
 
 function handleMovieUnsave() {
   onMovieUnsave(movie);
@@ -12,7 +12,7 @@ function handleMovieSave() {
 const buttonClassList = savedMoviesStatus? 'movieCard__save' : 'movieCard__save movieCard__save_delete';
 
   return  (
-    <li className="movieCard">
+    <li className="movieCard" id={movie._id}>
       <div className="movieCard__info">
         <div className="movieCard__text">
           <h3 className="movieCard__title">{movie.nameRu}</h3>

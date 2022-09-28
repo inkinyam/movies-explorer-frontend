@@ -1,5 +1,5 @@
 exports.startMovies = [
-  { id: "1",
+  { _id: "11111",
     country: "usa",
     director: "mister",
     duration: "95",
@@ -15,7 +15,7 @@ exports.startMovies = [
     nameEN: "Hanhoc",
   },
   {
-    id: "2",
+    _id: "11112",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -31,7 +31,7 @@ exports.startMovies = [
     nameEN: "Cruella",
   },
   {
-    id: "3",
+    _id: "11113",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -47,7 +47,7 @@ exports.startMovies = [
     nameEN: "New spiderman",
   },
   {
-    id: "4",
+    _id: "11114",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -63,7 +63,7 @@ exports.startMovies = [
     nameEN: "Perviy mstitel",
   },
   {
-    id: "5",
+    _id: "11115",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -79,7 +79,7 @@ exports.startMovies = [
     nameEN: "omg sosiage",
   },
   {
-    id: "6",
+    _id: "11116",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -98,7 +98,7 @@ exports.startMovies = [
 
 exports.savedMovies = [
   {
-    id: "12",
+    _id: "11122",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -114,7 +114,7 @@ exports.savedMovies = [
     nameEN: "33 kows",
   },
   {
-    id: "13",
+    _id: "11133",
     country: "usa",
     director: "mister",
     duration: "100",
