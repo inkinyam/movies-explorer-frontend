@@ -1,21 +1,33 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = ({ movies, savedMoviesBlock }) => {
-  function handleMovieUnsave() {}
-  function handleMovieSave() {}
+const MoviesCardList = ({ movies, savedMoviesStatus }) => {
+  function handleMovieUnsave(){
+    /* -удаляем из списка сохраненных для этого юзера
+       - удаляем флажок
+    */
+  }
+
+  const handleMovieSave = () => {
+    /* - добавить в список сохраненных для этого юзера
+       -  добавить флажок для фильма, если он рендерится в мувис*/
+  }
+
+const handleMoreClick = () => {
+
+}
 
   return (
     <div className="movieCardList">
-      <div className="movieCardList__list">
+      <ul className="movieCardList__list">
         {movies.map((movie) => (
-          <MoviesCard onMovieSave = {handleMovieSave}
-                      onMovieUnsave = {handleMovieUnsave}
+          <MoviesCard key = {movie._id}
                       movie = {movie}
-                      key = {movies._id}
-                      savedMoviesStatus = {savedMoviesBlock}/>
+                      onMovieSave = {handleMovieSave}
+                      onMovieUnsave = {handleMovieUnsave}
+                      savedMoviesStatus = {savedMoviesStatus}/>
         ))}
-      </div>
-      <button className="movieCardList__showmore">Еще</button>
+      </ul>
+      <button className="movieCardList__showmore" onClick={handleMoreClick}>Еще</button>
     </div>
   )
 }

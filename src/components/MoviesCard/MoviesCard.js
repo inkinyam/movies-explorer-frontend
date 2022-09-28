@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MoviesCard = ({onMovieSave, onMovieUnsave, movie, key, savedMoviesStatus}) => {
+const MoviesCard = ({ onMovieSave, onMovieUnsave, movie,  savedMoviesStatus}) => {
 
 function handleMovieUnsave() {
   onMovieUnsave(movie);
@@ -9,17 +9,19 @@ function handleMovieSave() {
   onMovieSave(movie);
 }
   
+const buttonClassList = savedMoviesStatus? 'movieCard__save' : 'movieCard__save movieCard__save_delete';
+
   return  (
-    <div className="movieCard" key={key} id={movie._id}>
+    <li className="movieCard">
       <div className="movieCard__info">
         <div className="movieCard__text">
           <h3 className="movieCard__title">{movie.nameRu}</h3>
           <p className="movieCard__time-info">{movie.duration}</p>
         </div>
-        <button type="button" className={savedMoviesStatus? 'movieCard__save movieCard__save_saved' : 'ovieCard__save movieCard__save_delete'} onClick={savedMoviesStatus? handleMovieUnsave : handleMovieSave}></button>
+        <button type="button" className={buttonClassList} onClick={savedMoviesStatus? handleMovieUnsave : handleMovieSave}></button>
       </div>
       <img className="movieCard__img" src={movie.image} alt={movie.nameRu}></img>
-    </div>
+    </li>
   );
 }
 

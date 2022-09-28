@@ -9,7 +9,7 @@ const Movies = () => {
     <section className="movies">
       <SearchFrom />
       <MoviesCardList movies={startMovies}
-                      movieSaveStatus={false}/>
+                      savedMoviesStatus={true}/>
       <Footer/>
     </section>
    )

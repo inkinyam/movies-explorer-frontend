@@ -14,7 +14,9 @@
   grid-template-rows: auto;
   row-gap: 30px;
   column-gap: 24px;
-  margin-bottom: 80px;
+  margin: 0 auto 80px;
+  padding: 0;
+  justify-items: center;
 }
 
 .movieCardList__showmore {
@@ -44,7 +46,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1060px) {
   .movieCardList__list{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -53,7 +55,7 @@
   }
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 700px) {
   .movieCardList{
     padding: 40px 0 80px;
   }

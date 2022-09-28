@@ -1,5 +1,5 @@
 exports.startMovies = [
-  {
+  { id: "1",
     country: "usa",
     director: "mister",
     duration: "95",
@@ -15,6 +15,7 @@ exports.startMovies = [
     nameEN: "Hanhoc",
   },
   {
+    id: "2",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -30,6 +31,7 @@ exports.startMovies = [
     nameEN: "Cruella",
   },
   {
+    id: "3",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -45,6 +47,7 @@ exports.startMovies = [
     nameEN: "New spiderman",
   },
   {
+    id: "4",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -60,6 +63,7 @@ exports.startMovies = [
     nameEN: "Perviy mstitel",
   },
   {
+    id: "5",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -75,24 +79,26 @@ exports.startMovies = [
     nameEN: "omg sosiage",
   },
   {
+    id: "6",
     country: "usa",
     director: "mister",
     duration: "100",
     year: "2031",
     description: "обожемой какая штука",
     image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOvAfl_H-PQGxkd1wxzb_fYRJjDQy6vHOaqPbBxWdMgW0poJTa6Xy5vMOpVKIGjJNGIVE&usqp=CAU",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/bf93b465-1189-4155-9dd1-cb9fb5cb1bb5/300x",
     trailerLink:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOvAfl_H-PQGxkd1wxzb_fYRJjDQy6vHOaqPbBxWdMgW0poJTa6Xy5vMOpVKIGjJNGIVE&usqp=CAU",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/bf93b465-1189-4155-9dd1-cb9fb5cb1bb5/300x",
     thumbnail:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOvAfl_H-PQGxkd1wxzb_fYRJjDQy6vHOaqPbBxWdMgW0poJTa6Xy5vMOpVKIGjJNGIVE&usqp=CAU",
-    nameRU: "Энола Холмс",
-    nameEN: "Enola Holms",
+      "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/bf93b465-1189-4155-9dd1-cb9fb5cb1bb5/300x",
+    nameRU: "1+1",
+    nameEN: "1+1",
   },
 ];
 
 exports.savedMovies = [
   {
+    id: "12",
     country: "usa",
     director: "mister",
     duration: "100",
@@ -108,6 +114,7 @@ exports.savedMovies = [
     nameEN: "33 kows",
   },
   {
+    id: "13",
     country: "usa",
     director: "mister",
     duration: "100",
