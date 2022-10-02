@@ -1,0 +1,126 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+  height: 74px;
+}
+
+.navigation__links {
+  width: 100%;
+  margin: 0 auto 0 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.navigation__link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000;
+  opacity: 1;
+  transition: opacity .2s ease-in;
+}
+
+.navigation__link:hover {
+  opacity: 0.8;
+}
+
+.navigation__link_active{
+  font-weight: 500;
+}
+
+.navigation__acc {
+  width: 100px;
+  height: 32px;
+  padding: 0;
+  margin-left: auto;
+
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+  background-color: #F9F9F9;
+  border-radius: 20px;
+
+  font-style: normal;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  opacity: 1;
+  transition: opacity, border .2s ease-in;
+}
+
+.navigation__acc_active {
+  box-sizing: border-box;
+  border: 1px solid rgba(92, 92, 92, .5);
+}
+
+.navigation__acc:hover{
+  opacity: 0.8;
+}
+
+.navigation__burger {
+  display: none;
+  background-color: transparent;
+  height: 24px;
+  border: none;
+  outline: none;
+  padding: 0;
+
+  flex-direction: column;
+  row-gap: 6px;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  transition: opacity .3s ease-in;
+}
+
+
+.navigation__burger span{
+  width: 28px;
+  border: 1px solid black;
+  background-color: black;;
+  display: block;
+  border-radius: 22px;
+  transition: 1s; 
+}
+
+.navigation__burger:hover{
+  opacity: .7;
+}
+
+
+@media screen and (max-width: 770px) {
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
+
+  .navigation__links {
+    display: none;
+  }
+
+  .navigation__acc {
+    margin: auto 0 0;
+  }
+
+  .navigation__burger {
+    display: flex;
+  }
+}
+
+
+
+@media screen and (max-width: 380px) {
+  .navigation__burger span{
+    width: 22px;
+  }
+}

@@ -1,0 +1,154 @@
+.aboutProject {
+  box-sizing: border-box;
+  padding: 110px 0 140px;
+}
+
+.aboutProject__info {
+  max-width: 1140px;
+  width: 90%;
+  margin: 70px auto 110px;
+
+  padding: 0;
+  list-style: none;
+  
+  display: flex;
+  flex-direction: row;
+  column-gap: 40px;
+}
+
+.aboutProject__step-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  margin: 0 0 26px;
+}
+
+.aboutProject__step-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.aboutProject__timeline {
+  width: 90%;
+  max-width: 1140px;
+  height: 36px;
+  background-color: #F2F2F2;
+
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.aboutProject__timeline-item {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.aboutProject__timeline-item:nth-of-type(1) {
+  background-color: #2BE080;
+  max-width: 228px;
+}
+
+
+.aboutProject__timeline-item::after {
+  position: absolute;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #A0A0A0;
+  bottom: -35px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: max-content;
+}
+
+.aboutProject__timeline-item:nth-of-type(1)::after {
+  content: 'Back-end';
+}
+
+.aboutProject__timeline-item:nth-of-type(2)::after {
+  content: 'Front-end';
+}
+
+.aboutProject__timeline-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+
+@media screen and (max-width: 770px) {
+  .aboutProject {
+    padding: 90px 0 110px;
+  }
+  
+
+  .aboutProject__info {
+    margin: 70px auto 93px;
+    column-gap: 30px;
+  }
+
+  .aboutProject__step-title {
+    margin: 0 0 22px;
+  }
+
+  .aboutProject__step-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .aboutProject__timeline-item:first-of-type {
+    max-width: 140px;
+  }
+  
+}
+
+@media screen and (max-width: 508px) {
+  .aboutProject {
+    padding: 70px 0 100px;
+  }
+
+  .aboutProject__info {
+    flex-direction: column;
+    row-gap: 56px;
+    margin: 60px auto;
+  }
+
+  .AboutProject__step-title {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 16px;
+  }
+
+  .aboutProject__step-text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  
+  .aboutProject__timeline-item:first-of-type {
+    max-width: 100px;
+  }
+
+  .aboutProject__timeline-text {
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .aboutProject__timeline-item::after {
+    bottom: -25px;
+    font-size: 11px;
+    line-height: 13px;
+  }
+}
