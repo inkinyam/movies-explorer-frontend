@@ -3,6 +3,8 @@ import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
+import { savedMovies } from "../../consts/movies";
+
 const SavedMovies = () => {
   return (
     <>

@@ -2,6 +2,8 @@ import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
+import { startMovies } from "../../consts/movies";
+
 const Movies = () => {
   return (
     <>

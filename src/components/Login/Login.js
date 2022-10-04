@@ -18,7 +18,7 @@ const Login = () => {
         <span className="auth__err auth__err-password auth__err_shown">что-то пошло не так...</span>
      
         <button className="auth__submit">Зарегистрироваться</button>
-        <p className='auth__advice'>Еще не зарегистрированы? <Link className='auth__link' to="/sign-up">Регистрация</Link></p>
+        <p className='auth__advice'>Еще не зарегистрированы? <Link className='auth__link' to="/signup">Регистрация</Link></p>
       </form>
 
   </section>)
