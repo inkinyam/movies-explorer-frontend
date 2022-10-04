@@ -5,11 +5,14 @@ import Footer from "../Footer/Footer";
 
 const SavedMovies = () => {
   return (
-    <section className="savedMovies">
-      <SearchFrom />
-      <MoviesCardList />
+    <>
+      <main className="movies">
+        <SearchFrom />
+        <MoviesCardList movies={savedMovies}
+                      savedMoviesStatus={false}/>
+      </main>
       <Footer/>
-    </section>
+    </>
    )
 };
 

@@ -4,11 +4,14 @@ import Footer from "../Footer/Footer";
 
 const Movies = () => {
   return (
-    <section className="movies">
-      <SearchFrom />
-      <MoviesCardList />
+    <>
+      <main className="movies">
+        <SearchFrom />
+        <MoviesCardList movies={startMovies}
+                        savedMoviesStatus={true}/>
+      </main>
       <Footer/>
-    </section>
+    </>
    )
 };
 

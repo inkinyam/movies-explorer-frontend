@@ -8,19 +8,24 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
-import { CurrentUserContext } from '../context/CurrentUserContext.js'; 
+
+import { CurrentUserContext } from '../../context/CurrentUserContext'; 
+
 
 const App = () => {
-  const currentUser = React.useContext(CurrentUserContext);
+  /* const currentUser = React.useContext(CurrentUserContext); */
   const [loggedIn, handleLogin]  = React.useState(true); 
 
   const setLoginTrue = () => {
     handleLogin(true);
   }
   
+/*установка контекста для пользователя*/
+ const [currentUser, getCurrentUser] = React.useState({});
+
 /* возвращаемый объект */
   return (
-   
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
          <Routes> 
             <Route path="/sign-up" element = {<Register /> } /> 
@@ -37,7 +42,7 @@ const App = () => {
 
         </Routes>
       </div>
-
+      </CurrentUserContext.Provider>
   );
 }
 

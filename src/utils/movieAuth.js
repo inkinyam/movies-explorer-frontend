@@ -11,13 +11,14 @@ const checkRes = (res) => {
 }
 
 /*функция для отправки запроса на регистрацию*/
-export const register = (password, email) => {
+export const register = (password, email, name) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
                         password: password, 
-                        email: email 
+                        email: email,
+                        name: name
                         })
     })
     .then(checkRes);

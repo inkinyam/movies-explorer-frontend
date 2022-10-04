@@ -19,13 +19,6 @@
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-//метод, который реализует получение карточки с сервера
-  getCards () {
-    return fetch (`${this.baseUrl}/cards`, {
-      headers: {...this.headers, ...this._getHeaders()},
-    })
-    .then (res => {return this._checkRes(res)})
-  }
 
  // метод, который реализует получение данные пользователя с сервера
   getUserData () {
@@ -36,38 +29,46 @@
   }
 
  // метод, который реализует редактирование данных пользователя на сервере
-  postUserData (userName, about){
+  postUserData (userName, email){
     return fetch (`${this.baseUrl}/users/me`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'PATCH',
-      body: JSON.stringify({name: userName, about: about}),
+      body: JSON.stringify({name: userName, email: email}),
     })
     .then (res => {return this._checkRes(res)})
   }
 
-  //  метод, который реализует редактирование автара пользователя на сервере
-  postUserPhoto (link){
-    return fetch (`${this.baseUrl}/users/me/avatar`, {
+  //метод, который реализует получение карточки с сервера
+  getMovies () {
+    return fetch (`${this.baseUrl}/movies`, {
       headers: {...this.headers, ...this._getHeaders()},
-      method: 'PATCH',
-      body: JSON.stringify({avatar: link}),
     })
     .then (res => {return this._checkRes(res)})
   }
 
 // метод, который реализует отправление карточки на сервер
-  postCard (cardName, link){
+  postMovie (country, director, duration, year, description, image, trailerLink, thumbnail, nameRu, nameEn){
     return fetch (`${this.baseUrl}/cards`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'POST',
-      body: JSON.stringify({name: cardName, link: link}),
+      body: JSON.stringify({country: country, 
+                            director: director, 
+                            duration: duration,
+                            year: year, 
+                            description: description, 
+                            image: image, 
+                            trailerLink: trailerLink, 
+                            thumbnail: thumbnail, 
+                            nameRu: nameRu, 
+                            nameEn: nameEn
+                          }),
     })
     .then (res => {return this._checkRes(res)})
   }
 
 // метод, который реализует установку лайка на карточку
-  putLike (cardId){
-    return fetch (`${this.baseUrl}/cards/${cardId}/likes`, {
+  saveMovie(moviedId){
+    return fetch (`${this.baseUrl}/movies/${moviedId}/saved`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'PUT',
     })
@@ -75,8 +76,8 @@
   }
 
 // метод, который реализует удаление лайка с карточки
-  deleteLike (cardId){
-    return fetch (`${this.baseUrl}/cards/${cardId}/likes`, {
+  deleteLike (moviedId){
+    return fetch (`${this.baseUrl}/movies/${moviedId}/saved`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'DELETE',
     })
@@ -84,8 +85,8 @@
   }
 
 // метод, который реализует удаление карточки с сервера  
-  deleteCard (cardId) {
-    return fetch (`${this.baseUrl}/cards/${cardId}`, {
+  deleteMovie (moviedId) {
+    return fetch (`${this.baseUrl}/movies/${moviedId}`, {
       method: 'DELETE',
       headers: {...this.headers, ...this._getHeaders()},
     })
