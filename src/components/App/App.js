@@ -27,7 +27,7 @@ const App = () => {
 
  const navigate = useNavigate();
  const jwt = localStorage.getItem('jwt');
-
+/*   
   React.useEffect(()=>{
     if (jwt) {
       movieAuth.authorize(jwt);
@@ -42,7 +42,7 @@ const App = () => {
     }
   }, []);
 
-  
+
   React.useEffect(()=>{
     if (loggedIn) {
       Promise.all([api.getUserData(), api.getMovies()])
@@ -68,20 +68,22 @@ const App = () => {
   const renewMovieCards= (newMovie, id) => {
     setMovies((state) => state.map((c) => c._id === id ? newMovie : c));
   }
-
+ */
 /* возвращаемый объект */
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
          <Routes> 
+
+            <Route  path="/" element = {<Main/>} />
             <Route path="/signup" element = {<Register /> } /> 
             <Route path="/signin" element = {<Login /> } /> 
-            <Route  path="/" element = {<Main/>} />
 
-            <Route  path="/" element = { <ProtectedRoute loggedIn={loggedIn} />} >
-               <Route  path="/movies" element = {<Movies />} />    
-               <Route  path="/savedmovies" element = {<SavedMovies />} />                   
-               <Route  path="/profile" element = {<Profile />} />                 
+            <Route  path="/" element = { <ProtectedRoute loggedIn={loggedIn} >
+                <Route  path="/movies" element = {<Movies />} />    
+                <Route  path="/savedmovies" element = {<SavedMovies />} />                   
+                <Route  path="/profile" element = {<Profile />} />            
+              </ProtectedRoute>} >
             </Route>
            
             <Route path="*" element = {<NotFound />} />
