@@ -8,8 +8,8 @@ const NavTab = ({isOpen, onClose}) => {
     <div className={'navtab  '+ (isOpen && ' navtab_opened')}>
       <div className='navtab__container'>
       <button className='navtab__exit ' onClick={onClose}></button>
-        <h2 className="navtab__title">Главная</h2>
         <div className="navtab__links">
+          <NavLink to="/" className={linkClassNames}>Главная</NavLink>
           <NavLink to="/movies" className={linkClassNames}>Фильмы</NavLink>
           <NavLink to="/savedmovies" className={linkClassNames}>Сохраненные фильмы</NavLink>
           <NavLink to="/profile" className={accountClassNames}>Аккаунт</NavLink>

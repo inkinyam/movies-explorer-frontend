@@ -1,6 +1,6 @@
 // работа с api для регистрации и авторизации пользователя
+import { BASE_URL } from "./consts";
 
-export const BASE_URL = 'https://api.inkinyam.nomoredomains.sbs';
 
 /*для проверки ответа от api*/
 const checkRes = (res) => {

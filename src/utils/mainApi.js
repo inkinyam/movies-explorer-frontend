@@ -1,4 +1,6 @@
- class Api {
+ import { BASE_URL } from "./consts";
+ 
+ class mainApi {
   constructor (baseUrl, {headers}) {
     this.baseUrl = baseUrl;
     this.headers = headers;
@@ -39,7 +41,7 @@
   }
 
   //метод, который реализует получение карточки с сервера
-  getMovies () {
+  getSavedMovies () {
     return fetch (`${this.baseUrl}/movies`, {
       headers: {...this.headers, ...this._getHeaders()},
     })
@@ -67,37 +69,30 @@
   }
 
 // метод, который реализует установку лайка на карточку
-  saveMovie(moviedId){
-    return fetch (`${this.baseUrl}/movies/${moviedId}/saved`, {
+  saveMovie(movie){
+    return fetch (`${this.baseUrl}/movies`, {
       headers: {...this.headers, ...this._getHeaders()},
-      method: 'PUT',
+      method: 'POST',
+      body: JSON.stringify(movie)
     })
     .then (res => {return this._checkRes(res)})
   }
 
 // метод, который реализует удаление лайка с карточки
-  deleteLike (moviedId){
-    return fetch (`${this.baseUrl}/movies/${moviedId}/saved`, {
-      headers: {...this.headers, ...this._getHeaders()},
-      method: 'DELETE',
-    })
-    .then (res => {return this._checkRes(res)})
-  }
-
-// метод, который реализует удаление карточки с сервера  
-  deleteMovie (moviedId) {
+  unsaveMovie (moviedId){
     return fetch (`${this.baseUrl}/movies/${moviedId}`, {
-      method: 'DELETE',
       headers: {...this.headers, ...this._getHeaders()},
+      method: 'DELETE',
     })
     .then (res => {return this._checkRes(res)})
   }
-}
+ }
 
 /*создаем и экспортируем экземпляр класса api для использования в App*/ 
-const api = new Api ('https://api.inkinyam.nomoredomains.sbs', {
+const api = new mainApi (BASE_URL, {
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin:': BASE_URL
   }
 })
 

@@ -1,4 +1,4 @@
-const Profile = () => {
+const Profile = ({onSignOut}) => {
   return (
     <section className="profile">
       <h2 className="profile__title">Привет, Наталья!</h2>
@@ -14,8 +14,8 @@ const Profile = () => {
         </div>
       </form>
 
-      <button className="profile__button profile__button_v_edit">Редактировать</button>
-      <button className="profile__button profile__button_v_exit">Выйти из аккаунта</button>
+      <button type="button" className="profile__button profile__button_v_edit">Редактировать</button>
+      <button type="button" className="profile__button profile__button_v_exit" onClick={onSignOut}>Выйти из аккаунта</button>
     </section>
   )
 };

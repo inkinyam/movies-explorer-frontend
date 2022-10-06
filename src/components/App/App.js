@@ -9,7 +9,8 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 
-import api from "../../utils/api";
+/* import api from "../../utils/mainApi";
+import moviesApi from '../../utils/MoviesApi'; */
 import * as movieAuth from "../../utils/movieAuth";
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
 
@@ -69,28 +70,94 @@ const App = () => {
     setMovies((state) => state.map((c) => c._id === id ? newMovie : c));
   }
  */
+
+  // регистрация
+  const onRegister = (password, email, name) => {
+    movieAuth.register(password, email, name)
+      .then(() => {
+        handleLogin(true);
+        navigate('/movies');
+      })
+      .catch((err) => {
+        err.json().then (err => console.log(err.error))
+      })
+      .finally(() => {
+
+      })
+  }
+
+  //авторизация
+  const onLogin = (password, email) => {
+    movieAuth.authorize (password, email)
+      .then(res => {
+        localStorage.setItem('jwt', res.jwt);
+        setEmail(email);
+        handleLogin(true);
+        navigate('/movies');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  /*проверяем корректен ли токен, который хранится в local storage*/
+/*   React.useEffect(() => {
+    if (jwt) {
+      movieAuth.checkToken(jwt)
+        .then(res => { 
+          setEmail(res.email);
+          handleLogin(true);
+          navigate('/');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [navigate]); */
+
+  /*удаляем из local storage токен и разлогиниваемся*/
+  const onSignOut = () => {
+    localStorage.removeItem('jwt');
+    handleLogin(false);
+    navigate('/');
+  };
+
 /* возвращаемый объект */
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    
       <div className="app">
+        <CurrentUserContext.Provider value={currentUser}>
          <Routes> 
 
-            <Route  path="/" element = {<Main/>} />
-            <Route path="/signup" element = {<Register /> } /> 
-            <Route path="/signin" element = {<Login /> } /> 
+            <Route  path="/" element = {<Main loggedIn={loggedIn}/>} />
+            <Route path="/signup" element = {<Register onRegister={onRegister}/> } /> 
+            <Route path="/signin" element = {<Login  onLogin={onLogin}/> } /> 
 
-            <Route  path="/" element = { <ProtectedRoute loggedIn={loggedIn} >
-                <Route  path="/movies" element = {<Movies />} />    
-                <Route  path="/savedmovies" element = {<SavedMovies />} />                   
-                <Route  path="/profile" element = {<Profile />} />            
-              </ProtectedRoute>} >
-            </Route>
-           
+            <Route  path="/movies" element = { 
+              <ProtectedRoute loggedIn={loggedIn} >
+                <Movies />  
+              </ProtectedRoute>   
+            } />
+
+            <Route  path="/savedmovies" element = { 
+              <ProtectedRoute loggedIn={loggedIn} >
+                <SavedMovies />  
+              </ProtectedRoute>   
+            } />
+
+          <Route  path="/profile" element = { 
+              <ProtectedRoute loggedIn={loggedIn} >
+                <Profile onSignOut={onSignOut}/>  
+              </ProtectedRoute>   
+            } />
+            
+             
             <Route path="*" element = {<NotFound />} />
 
         </Routes>
+        </CurrentUserContext.Provider>
       </div>
-      </CurrentUserContext.Provider>
+
   );
 }
 
