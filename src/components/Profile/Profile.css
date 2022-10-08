@@ -25,6 +25,8 @@
   width: 100%;
   height: 100%;
   margin: 123px auto auto;
+  display: flex;
+  flex-direction: column;
 
 }
 
@@ -66,9 +68,26 @@
 
 }
 
+
 .profile__input:focus~.profile__label {
   color: #2BE080;
 }
+
+.profile__error {
+  color: #EE3465;
+  max-width: 100%;
+  margin:  20% auto;
+  text-align: center;
+  width: auto;
+  opacity: 0;
+  transition: opacity .2s ease-in;
+}
+
+.profile__error_show {
+  opacity: 1;
+}
+
+
 
 .profile__button {
   margin-top: auto;

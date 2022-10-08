@@ -65,16 +65,19 @@
   border: 1px solid #fff;
   opacity: 0.6;
   background-color: transparent;
+  text-decoration: none;
+  text-align: center; 
 
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 36px;
   color: #fff;
   transition: opacity 0.3s ease-in;
 }
 
 .promo__btn:hover {
+  cursor: pointer;
   opacity: 0.8;
 }
 

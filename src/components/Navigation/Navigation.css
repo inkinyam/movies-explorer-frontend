@@ -8,6 +8,10 @@
   height: 74px;
 }
 
+.navigation_hide {
+  display: none;
+}
+
 .navigation__links {
   width: 100%;
   margin: 0 auto 0 44px;

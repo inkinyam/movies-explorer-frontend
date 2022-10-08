@@ -6,9 +6,13 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 
-const Main =(loggedIn) => {
-  return (<>
-       {loggedIn ? <Navigation/> : <Header/>  }
+const Main =({loggedIn}) => {
+  let header = (loggedIn === true) ? <Navigation/> : <Header />;
+
+  return (
+    <>
+      {header}
+
       <main>
         <Promo />
         <AboutProject />

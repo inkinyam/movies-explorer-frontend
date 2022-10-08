@@ -164,7 +164,7 @@
 
 
 @media screen and (max-width: 560px) {
-  .searchigForm__input {
+  .searchigForm__input:focus {
     background-image: none;
     text-align: left;
   }

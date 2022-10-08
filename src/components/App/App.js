@@ -9,8 +9,8 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 
-/* import api from "../../utils/mainApi";
-import moviesApi from '../../utils/MoviesApi'; */
+ import api from "../../utils/mainApi";
+/*import moviesApi from '../../utils/MoviesApi'; */
 import * as movieAuth from "../../utils/movieAuth";
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
 
@@ -20,45 +20,36 @@ const App = () => {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
   const [movies, setMovies] = React.useState([]);
-  const [loggedIn, handleLogin]  = React.useState(false); 
+  const [loggedIn, setLoggedIn]  = React.useState(false); 
 
   
 /*установка контекста для пользователя*/
  const [currentUser, getCurrentUser] = React.useState({});
 
  const navigate = useNavigate();
- const jwt = localStorage.getItem('jwt');
-/*   
-  React.useEffect(()=>{
-    if (jwt) {
-      movieAuth.authorize(jwt);
-      handleLogin(true);
-      setEmail(currentUser.email);
-      setName(currentUser.name);
-    } else {
-      console.log('Пользователя не существует');
-      getCurrentUser({});
-      handleLogin(false);
-      navigate("/signin");
-    }
-  }, []);
+ //const jwt = localStorage.getItem('jwt');
 
+/*проверка jwt*/
+ const checkToken = () => {
+  const jwt = localStorage.getItem('jwt');
 
-  React.useEffect(()=>{
-    if (loggedIn) {
-      Promise.all([api.getUserData(), api.getMovies()])
-      .then((userData, moviesData) => {
-        getCurrentUser(userData);
-        setMovies(moviesData);
+  if (jwt) {
+    movieAuth
+      .checkToken(jwt)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          navigate('/');
+        }
       })
-      .then(() => { navigate('/movies')})
-      .catch((err) => console.error(err))
-    } else {
-      console.log('Вам нужно авторизироваться!');
-    }
-  }, loggedIn);
+      .catch((err) => {
+        onSignOut();
+        console.error(err);
+      });
+  }
+};
 
-  const handleUpdateUser = ({name, email}) => {
+ const handleUpdateUser = ({name, email}) => {
     api.postUserData(name, email)
       .then((userData)=>{
         getCurrentUser(userData.user);
@@ -66,20 +57,20 @@ const App = () => {
       .catch((err) => console.error(err));
   }
 
-  const renewMovieCards= (newMovie, id) => {
-    setMovies((state) => state.map((c) => c._id === id ? newMovie : c));
-  }
- */
-
   // регистрация
   const onRegister = (password, email, name) => {
     movieAuth.register(password, email, name)
-      .then(() => {
-        handleLogin(true);
+      .then((res) => {
+        setLoggedIn(true);
+
+        localStorage.setItem('jwt', res.jwt);
+        setEmail(email);
+        setName(name);
+
         navigate('/movies');
       })
       .catch((err) => {
-        err.json().then (err => console.log(err.error))
+        err.json().then (err => console.log(err.message))
       })
       .finally(() => {
 
@@ -92,7 +83,9 @@ const App = () => {
       .then(res => {
         localStorage.setItem('jwt', res.jwt);
         setEmail(email);
-        handleLogin(true);
+        setName(name);
+
+        setLoggedIn(true);
         navigate('/movies');
       })
       .catch(err => {
@@ -118,7 +111,7 @@ const App = () => {
   /*удаляем из local storage токен и разлогиниваемся*/
   const onSignOut = () => {
     localStorage.removeItem('jwt');
-    handleLogin(false);
+    setLoggedIn(false);
     navigate('/');
   };
 
@@ -147,7 +140,9 @@ const App = () => {
 
           <Route  path="/profile" element = { 
               <ProtectedRoute loggedIn={loggedIn} >
-                <Profile onSignOut={onSignOut}/>  
+                <Profile onSignOut={onSignOut}
+                        onUpdateUser={handleUpdateUser}
+                        />  
               </ProtectedRoute>   
             } />
             

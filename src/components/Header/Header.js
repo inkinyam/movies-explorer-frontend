@@ -1,9 +1,13 @@
+import React from 'react';
 import MainLogo from '../../images/main-logo.svg';
 import { Link, NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({isVisible}) => {
+ // const classNames = (`header ${isVisible ? '' : ' header_hide'}`); 
+
+
   return (
-    <header className="header">
+    <header className='header'>
       <div className="header__containter">
         <Link to="/" ><img src={MainLogo} alt="mainlogo" className="" /></Link>
          <div className='header__link-box'>
