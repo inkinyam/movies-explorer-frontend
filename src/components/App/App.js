@@ -23,31 +23,48 @@ const App = () => {
   const [loggedIn, setLoggedIn]  = React.useState(false); 
 
   
-/*установка контекста для пользователя*/
- const [currentUser, getCurrentUser] = React.useState({});
+  /*установка контекста для пользователя*/
+  const [currentUser, getCurrentUser] = React.useState({});
 
- const navigate = useNavigate();
- //const jwt = localStorage.getItem('jwt');
+  const navigate = useNavigate();
 
-/*проверка jwt*/
- const checkToken = () => {
+  /*проверка jw*/
+  const checkToken = () => {
   const jwt = localStorage.getItem('jwt');
 
   if (jwt) {
-    movieAuth
-      .checkToken(jwt)
+    movieAuth.checkToken(jwt)
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate('/');
+          navigate('/movies');
+          setEmail(email);
+          setName(name);
         }
       })
       .catch((err) => {
         onSignOut();
         console.error(err);
       });
-  }
-};
+    }
+  };
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      api.getUserData()
+        .then((data) => {
+          getCurrentUser(data);
+        })
+        .catch((err) => {
+          console.error(`Проблемы с получением данных пользователя: ${err}`);
+        });
+    }
+  }, [loggedIn]);
+
+
+  React.useEffect(() => {
+    checkToken();
+  }, []);
 
  const handleUpdateUser = ({name, email}) => {
     api.postUserData(name, email)
@@ -61,16 +78,12 @@ const App = () => {
   const onRegister = (password, email, name) => {
     movieAuth.register(password, email, name)
       .then((res) => {
-        setLoggedIn(true);
-
-        localStorage.setItem('jwt', res.jwt);
-        setEmail(email);
-        setName(name);
-
-        navigate('/movies');
+       if (res) {
+        onLogin(password, email);
+       }
       })
       .catch((err) => {
-        err.json().then (err => console.log(err.message))
+        err.json().then (err => console.log(err))
       })
       .finally(() => {
 
@@ -80,33 +93,20 @@ const App = () => {
   //авторизация
   const onLogin = (password, email) => {
     movieAuth.authorize (password, email)
-      .then(res => {
+      .then( res => {
         localStorage.setItem('jwt', res.jwt);
-        setEmail(email);
-        setName(name);
-
-        setLoggedIn(true);
-        navigate('/movies');
+        movieAuth.checkToken(res.jwt)
+        .then((res) => {
+          if (res) {
+            setTimeout(() => navigate('/movies'), 1000);
+            setLoggedIn(true);
+            setEmail(email);
+            setName(name);
+          }
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => {console.log(err)})
+    })
   }
-
-  /*проверяем корректен ли токен, который хранится в local storage*/
-/*   React.useEffect(() => {
-    if (jwt) {
-      movieAuth.checkToken(jwt)
-        .then(res => { 
-          setEmail(res.email);
-          handleLogin(true);
-          navigate('/');
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  }, [navigate]); */
 
   /*удаляем из local storage токен и разлогиниваемся*/
   const onSignOut = () => {

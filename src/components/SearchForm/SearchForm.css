@@ -26,6 +26,9 @@
   border-bottom: 1px solid #E8E8E8;
   margin-bottom: 30px;
   transition: all 0.3s ease-in;
+
+  box-sizing: border-box;
+  padding: 0 40px;
 }
 
 .searchigForm__input::placeholder {

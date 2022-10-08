@@ -1,86 +1,105 @@
 import React from 'react';
+import Navigation from '../Navigation/Navigation';
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
+import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
 const Profile = ({onUpdateUser ,onSignOut}) => {
   const currentUser = React.useContext(CurrentUserContext);
+  const [isEditInput, setIsEditInput] = React.useState(true);
+/*   const controlInput = useInputValidator();
+  const { nameErr, emailErr } = controlInput.errors; 
 
-  /* стейт и обработка изменений на инпуте name*/
-  const [nameValue, setName] = React.useState(currentUser.name);
+  const errorClassName = !controlInput.isValid
+    ? 'profile__error profile__error_show'
+    : 'profile__error';*/
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  const resultClassName = !isEditInput 
+    ? 'profile__succes profile__succes_show'
+    : 'profile__succes';
 
-    /* стейт и обработка изменений на инпуте email*/
-  const [emailValue, setEmail] = React.useState(currentUser.email);
+  const toggleStateInput = (e) => {
+     e.preventDefault();
+    setIsEditInput(!isEditInput);
+  };
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
+const [nameValue, setNameValue] = React.useState();
+const [emailValue, setEmailValue] = React.useState();
 
-  /*обновляем значения инпутов при открытии*/
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser]);
+const handleEmailChange = (e) => {
+  setEmailValue(e.target.value);
+}
 
+const handleNameChange = (e) => {
+  setNameValue(e.target.value);
+}
 
   /*обработчик сабмита формы*/
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onUpdateUser({
-      name: nameValue,
-      email: emailValue,
-    });
-  }
-
-  let buttonText ='Редактировать данные';
-  const handleChangeUserInfo = () => {
-    if (nameValue === currentUser.name&&emailValue===currentUser.email) {
-      buttonText ='Редактировать данные';
-    } 
-    else {
-      buttonText ='Сохранить изменения';
+    const { name, email } = {nameValue, emailValue};
+    if (!name) {
+      onUpdateUser(currentUser.name, email);
+    } else if (!email) {
+      onUpdateUser(name, currentUser.email);
+    } else {
+      onUpdateUser(name, email);
     }
-  }
+    setTimeout(() => setIsEditInput((state) => !state), 1000);
+  };
+
 
   return (
+    <>
+    <Navigation />
     <section className="profile" onSubmit={handleSubmit}>
-      <h2 className="profile__title">Привет, {nameValue}</h2>
+      <h2 className="profile__title">Привет, {currentUser.name}</h2>
 
-      <form className="profile__form">
+      <form className="profile__form" noValidate>
         <div className="profile__form-block">
           <input className="profile__input" 
                  type="text" 
-                 value={nameValue}
-                 onChange={handleChangeName} 
+                 placeholder={currentUser.name}
                  id="profileName" 
-                 placeholder='введите имя'
                  minLength="2" 
                  maxLength="40" 
-                 required />
+                 required 
+                 pattern='[A-Za-zА-Яа-яЁё\s-]+'
+                 onChange={handleNameChange}
+                 value={nameValue ?? currentUser.name}
+                 {...(!isEditInput ? {} : { disabled: true })}/>
           <label className="profile__label" htmlFor="profileName">Имя</label>
         </div>
         <div className="profile__form-block">
           <input className="profile__input" 
                  type="email" 
-                 value={nameValue}
-                 onChange={handleChangeEmail} 
                  id="profileEmail" 
-                 placeholder='введите e-mail'
                  minLength="2" 
                  maxLength="40" 
-                 required/>
+                 required
+                 placeholder={currentUser.email}
+                 pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+                 onChange={handleEmailChange}
+                 value={emailValue ?? currentUser.email}
+                 {...(!isEditInput ? {} : { disabled: true })}
+                 />
           <label className="profile__label"  htmlFor="profileEmail">E-mail</label>
         </div>
-        <span className='profile__error'>ой, ошибка</span>
+{/*         <span className={errorClassName}>{emailErr}</span>
+        <span className={errorClassName}>{nameErr}</span> */}
+        <span className={resultClassName}>Изменения прошли успешно!</span>
       </form>
 
       
-      <button type="button" className="profile__button profile__button_v_edit">{buttonText}</button>
-      <button type="button" className="profile__button profile__button_v_exit" onClick={onSignOut}>Выйти из аккаунта</button>
+   <button type="button" 
+              className="profile__button profile__button_v_edit"   
+              onClick={toggleStateInput}>
+              Редактировать
+      </button>
+      <button type="button" className="profile__button profile__button_v_exit" onClick={onSignOut}>Выйти из аккаунта</button> 
+
     </section>
+    </>
   )
 };
 

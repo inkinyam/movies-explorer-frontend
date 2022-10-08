@@ -92,7 +92,7 @@
 const api = new mainApi (BASE_URL, {
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin:': BASE_URL
+    'Access-Control-Allow-Origin': 'http://localhost:3000' // !!!!!!!!!!!!!!!!!!!!!! поменять потом
   }
 })
 
