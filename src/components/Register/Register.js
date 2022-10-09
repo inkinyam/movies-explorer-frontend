@@ -1,28 +1,24 @@
 import React from 'react';
 import MainLogo from '../../images/main-logo.svg';
 import { Link } from 'react-router-dom';
+import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
-const Register = ({onRegister}) => {
-  const [userName, setUserName]   = React.useState('');
-  const [userEmail, setUserEmail] = React.useState('');
-  const [userPass, setUserPass]   = React.useState('');
+const Register = ({onRegister, textError}) => {
 
-  const handleChangeName = (evt) => {
-    setUserName(evt.target.value);
-  }
+  const inputControl = useInputValidator();
+  const { name, email, password } = inputControl.errors;
 
-  const handleChangeEmail = (evt) => {
-    setUserEmail(evt.target.value);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, password } = inputControl.values;
+    onRegister(password, email, name);
+    inputControl.resetForm();
+  };
 
-  const handleChangePass = (evt) => {
-    setUserPass(evt.target.value);
-  }
+  const authErrorClassName = (textError === undefined)
+  ? "auth__errText"
+  : "auth__errText auth__errText_show"
 
-  const handleSubmit = (evt) =>{
-    evt.preventDefault();
-    onRegister ( userPass, userEmail, userName);
-  } 
 
   return (    
   <section className="auth">
@@ -31,36 +27,44 @@ const Register = ({onRegister}) => {
 
       <form className='auth__form' onSubmit={handleSubmit}>
         <label className='auth__label' htmlFor='name'>Имя</label>
-        <input type="text" 
-               className="auth__input" 
+        <input className={`auth__input ${inputControl?.errors?.name && "auth__input_error"}`}
+               type="text" 
+               name="name"
                id="name" 
                placeholder='введите имя'
-               onChange={handleChangeName}
-               value={userName}
-               required/>
-        <span className="auth__err auth__err-name ">что-то пошло не так...</span>
+               minLength="2" 
+               maxLength="40" 
+               required 
+               pattern="[A-Za-zА-Яа-яЁё\s-]+"
+               value={inputControl?.values?.name || ''}
+               onChange={inputControl.handleChange}
+               />
+        <span className={`auth__err ${inputControl?.errors?.name && "auth__err_show"}`}>{name}</span>
    
         <label className='auth__label'  htmlFor='email'>E-mail</label>
         <input type="email" 
-               className="auth__input" 
+               name="email" 
+               className={`auth__input ${inputControl?.errors?.email && "auth__input_error"}`}
                id="email" 
-               placeholder='введите e-mail'
-               onChange={handleChangeEmail}
-               value={userEmail}
+               placeholder="введите e-mail"
+               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+               value={inputControl?.values?.email || ''}
+               onChange={inputControl.handleChange}
                required/>
-        <span className="auth__err auth__err-email">что-то пошло не так...</span>
+        <span className={`auth__err ${inputControl?.errors?.email && "auth__err_show"}`}>{email}</span>
 
 
         <label className='auth__label' htmlFor='password'>Пароль</label>
         <input type="password" 
-               className="auth__input" 
+               name="password" 
+               className={`auth__input ${inputControl?.errors?.password && "auth__input_error"}`} 
                id="password" 
                placeholder='введите пароль'
-               onChange={handleChangePass}
-               value={userPass}
+               value={inputControl?.values?.password || ''}
+               onChange={inputControl.handleChange}
                required/>
-        <span className="auth__err auth__err-password">что-то пошло не так...</span>
-     
+        <span className={`auth__err ${inputControl?.errors?.password && "auth__err_show"}`}>{password}</span>
+        <span className={authErrorClassName}>{textError}</span> 
         <button type="submit" className="auth__submit">Зарегистрироваться</button>
         <p className='auth__advice'>Уже зарегистрированы? <Link className='auth__link' to="/signin">Войти</Link></p>
       </form>

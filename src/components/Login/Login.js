@@ -1,24 +1,23 @@
 import React from 'react';
 import MainLogo from '../../images/main-logo.svg';
 import { Link } from 'react-router-dom';
+import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
-const Login = ({onLogin}) => {
-  const [userEmail, setUserEmail] = React.useState('');
-  const [userPass, setUserPass]   = React.useState('');
 
-  const handleChangeEmail = (evt) => {
-    setUserEmail(evt.target.value);
-  }
-
-  const handleChangePass = (evt) => {
-    setUserPass(evt.target.value);
-  }
+const Login = ({onLogin, textError}) => {
+  const inputControl = useInputValidator();
+  const { email, password } = inputControl.errors;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onLogin(userPass, userEmail)
+    const { email, password } = inputControl.values;
+    onLogin(password, email)
+    inputControl.resetForm();
   }
     
+  const authErrorClassName = (textError === undefined)
+  ? "auth__errText"
+  : "auth__errText auth__errText_show"
 
   return (    
   <section className="auth">
@@ -27,26 +26,31 @@ const Login = ({onLogin}) => {
 
       <form className='auth__form' onSubmit={handleSubmit}>
         <label className='auth__label'  htmlFor='email'>E-mail</label>
-        <input type="email" 
-               className="auth__input" 
+        <input className={`auth__input ${inputControl?.errors?.email && "auth__input_error"}`}
+               type="text" 
+               name="email"
                id="email" 
-               placeholder='введите e-mail'
-               onChange = {handleChangeEmail} 
-               value = {userEmail} 
-               required/>
-        <span className="auth__err auth__err-email">что-то пошло не так...</span>
-
+               placeholder='введите email'
+               minLength="2" 
+               maxLength="40" 
+               required 
+               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+               value={inputControl?.values?.email || ''}
+               onChange={inputControl.handleChange}
+               />
+        <span className={`auth__err ${inputControl?.errors?.email && "auth__err_show"}`}>{email}</span>
 
         <label className='auth__label' htmlFor='password'>Имя</label>
         <input type="password" 
-               className="auth__input" 
+               name="password" 
+               className={`auth__input ${inputControl?.errors?.password && "auth__input_error"}`} 
                id="password" 
                placeholder='введите пароль'
-               onChange = {handleChangePass} 
-               value = {userPass}
+               value={inputControl?.values?.password || ''}
+               onChange={inputControl.handleChange}
                required/>
-        <span className="auth__err auth__err-password auth__err_shown">что-то пошло не так...</span>
-     
+        <span className={`auth__err ${inputControl?.errors?.password && "auth__err_show"}`}>{password}</span>
+        <span className={authErrorClassName}>{textError}</span> 
         <button type="submit" className="auth__submit">Войти</button>
         <p className='auth__advice'>Еще не зарегистрированы? <Link className='auth__link' to="/signup">Регистрация</Link></p>
       </form>

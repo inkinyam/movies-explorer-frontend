@@ -8,7 +8,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
-
+import { useLocation } from 'react-router-dom';
  import api from "../../utils/mainApi";
 /*import moviesApi from '../../utils/MoviesApi'; */
 import * as movieAuth from "../../utils/movieAuth";
@@ -16,19 +16,18 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 
 const App = () => {
-  const [selectedMovie, handleSelectMovie] = React.useState({});
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
-  const [movies, setMovies] = React.useState([]);
   const [loggedIn, setLoggedIn]  = React.useState(false); 
-
+  const [textError, setTextError] = React.useState('');
   
   /*установка контекста для пользователя*/
   const [currentUser, getCurrentUser] = React.useState({});
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  /*проверка jw*/
+  /*проверка jwt*/
   const checkToken = () => {
   const jwt = localStorage.getItem('jwt');
 
@@ -37,10 +36,12 @@ const App = () => {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate('/movies');
           setEmail(email);
           setName(name);
         }
+      })
+      .then(() => {
+        navigate(location.pathname);
       })
       .catch((err) => {
         onSignOut();
@@ -66,7 +67,12 @@ const App = () => {
     checkToken();
   }, []);
 
- const handleUpdateUser = ({name, email}) => {
+  //очистка ошибки 
+  const clearTextError = () => { 
+    setTimeout(() => setTextError(''), 10000) };
+
+ //апдейт данных юзера
+  const handleUpdateUser = ({name, email}) => {
     api.postUserData(name, email)
       .then((userData)=>{
         getCurrentUser(userData.user);
@@ -82,18 +88,19 @@ const App = () => {
         onLogin(password, email);
        }
       })
-      .catch((err) => {
-        err.json().then (err => console.log(err))
+      .catch((err) => { 
+        console.log(err);
+        setTextError(err.status === 409 ? 'Пользователь с таким email уже зарегистрирован' : 'При регистрации пользователя произошла ошибка.');
       })
-      .finally(() => {
-
+      .finally(()=> {
+        setTimeout(() => clearTextError(), 1000)
       })
   }
 
   //авторизация
   const onLogin = (password, email) => {
     movieAuth.authorize (password, email)
-      .then( res => {
+      .then((res) => {
         localStorage.setItem('jwt', res.jwt);
         movieAuth.checkToken(res.jwt)
         .then((res) => {
@@ -103,9 +110,16 @@ const App = () => {
             setEmail(email);
             setName(name);
           }
+        })
       })
-      .catch(err => {console.log(err)})
-    })
+      .catch((err) => { 
+        console.log(err);
+        setTextError(err.status === 401 ? 'Вы ввели неправильный логин или пароль.' : 'При авторизации произошла ошибка.');
+      })
+      .finally(()=> {
+        setTimeout(() => clearTextError(), 1000)
+      })
+    
   }
 
   /*удаляем из local storage токен и разлогиниваемся*/
@@ -117,14 +131,13 @@ const App = () => {
 
 /* возвращаемый объект */
   return (
-    
       <div className="app">
         <CurrentUserContext.Provider value={currentUser}>
          <Routes> 
-
+            <Route path="*" element = {<NotFound />} />
             <Route  path="/" element = {<Main loggedIn={loggedIn}/>} />
-            <Route path="/signup" element = {<Register onRegister={onRegister}/> } /> 
-            <Route path="/signin" element = {<Login  onLogin={onLogin}/> } /> 
+            <Route path="/signup" element = {<Register onRegister={onRegister} textError={textError}/> } /> 
+            <Route path="/signin" element = {<Login  onLogin={onLogin} textError={textError}/> } /> 
 
             <Route  path="/movies" element = { 
               <ProtectedRoute loggedIn={loggedIn} >
@@ -145,9 +158,6 @@ const App = () => {
                         />  
               </ProtectedRoute>   
             } />
-            
-             
-            <Route path="*" element = {<NotFound />} />
 
         </Routes>
         </CurrentUserContext.Provider>
