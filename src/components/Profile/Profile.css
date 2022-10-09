@@ -40,6 +40,10 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
+.profile__form-block:last-of-type {
+margin-bottom: 20%;
+}
+
 .profile__form-block:nth-of-type(2) {
    border-bottom: none;
 }
@@ -47,8 +51,8 @@
 .profile__label  {
   font-style: normal;
   font-weight: 500;
-  font-size: 11px;
-  line-height: 13px;
+  font-size: 13px;
+  line-height: 15px;
   margin: 0;
   order: 1;
   transition: color .2s ease-in;
@@ -61,8 +65,8 @@
   outline: none;
   background-color: transparent;
   font-weight: 400;
-  font-size: 11px;
-  line-height: 13px;
+  font-size: 13px;
+  line-height: 15px;
   text-align: right;
   order: 2;
 
@@ -73,7 +77,18 @@
   color: #2BE080;
 }
 
+.profile__input_error~.profile__label {
+  color: #EE3465;
+}
+.profile__input_error:focus~.profile__label {
+  color: #EE3465;
+}
+
+
 .profile__error {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
   color: #EE3465;
   max-width: 100%;
   margin:  0;
@@ -87,10 +102,13 @@
 .profile__error_show {
   opacity: 1;
   height: auto;
-  margin:  20% auto;
+  margin:  0 auto;
 }
 
 .profile__succes {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
   color: #2BE080;
   max-width: 100%;
   margin:  0;
@@ -104,7 +122,7 @@
 .profile__succes_show {
   opacity: 1;
   height: auto;
-  margin:  20% auto;
+  margin:  0 auto;
 }
 
 .profile__button {
@@ -116,6 +134,10 @@
   text-align: center;
   opacity: 1;
   transition: opacity, margin .2s ease-in;
+}
+.profile__button_disable {
+  pointer-events: none;
+   opacity: 0.6;
 }
 
 .profile__button_v_exit {
