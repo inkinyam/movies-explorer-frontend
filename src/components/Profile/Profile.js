@@ -4,14 +4,14 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
 const Profile = ({onUpdateUser ,onSignOut}) => {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser             = React.useContext(CurrentUserContext);
   const [isUnlock, setIsUnlock] = React.useState(true);
 
-  const inputControl = useInputValidator();
-  const {name, email} = inputControl.errors;
+  const inputControl                    = useInputValidator();
+  const {name, email}                   = inputControl.errors;
   const [isSameValues, setIsSameValues] = React.useState(true);
-  const [isValid, setIsValid] = React.useState(false);
-  const [isSucces, setIsSucces] = React.useState(false);
+  const [isValid, setIsValid]           = React.useState(false);
+  const [isSucces, setIsSucces]         = React.useState(false);
 
   const toggleStateInput = (e) => {
     e.preventDefault();
@@ -20,12 +20,13 @@ const Profile = ({onUpdateUser ,onSignOut}) => {
   }; 
 
   const button = isUnlock 
-    ? <button type="button"  
-              className="profile__button profile__button_v_edit" 
-              onClick={toggleStateInput}> Редактириовать </button>
-    : <button type="submit" 
-              className={`profile__button profile__button_v_edit ${(!isValid && 'profile__button_disable')}`}
-              disabled={(!isValid && 'disabled')}> Сохранить </button>
+    ? <button type      = "button"  
+              className = "profile__button profile__button_v_edit" 
+              onClick   = {toggleStateInput}> Редактириовать </button>
+
+    : <button type      = "submit" 
+              className = {`profile__button profile__button_v_edit ${(!isValid && 'profile__button_disable')}`}
+              disabled  = {(!isValid && 'disabled')}> Сохранить </button>
   
   const errorClassName = !isValid
     ? 'profile__error profile__error_show'
@@ -77,31 +78,31 @@ const Profile = ({onUpdateUser ,onSignOut}) => {
       <form className="profile__form" noValidate onSubmit={handleSubmit}>
         <div className="profile__form-block">
           <input className={`profile__input ${inputControl?.errors?.name && "profile__input_error"}`} 
-                 type="text" 
-                 name="name"
-                 placeholder={currentUser.name}
-                 id="profileName" 
-                 minLength="2" 
-                 maxLength="40" 
+                 type        = "text" 
+                 name        = "name"
+                 placeholder = {currentUser.name}
+                 id          = "profileName" 
+                 minLength   = "2" 
+                 maxLength   = "40" 
                  required 
-                 pattern="[A-Za-zА-Яа-яЁё\s-]+"
-                 value={inputControl?.values?.name ?? currentUser.name}
-                 onChange={inputControl.handleChange}
-                 disabled={isUnlock && "disabled"}
+                 pattern     = "[A-Za-zА-Яа-яЁё\s-]+"
+                 value       = {inputControl?.values?.name ?? currentUser.name}
+                 onChange    = {inputControl.handleChange}
+                 disabled    = {isUnlock && "disabled"}
                 />
-          <label className="profile__label" htmlFor="profileName">Имя</label>
+          <label className = "profile__label" htmlFor = "profileName">Имя</label>
         </div>
         <div className="profile__form-block">
-          <input className={`profile__input ${inputControl?.errors?.email && "profile__input_error"}`}
-                 type="email" 
-                 name="email" 
-                 id="profileEmail" 
+          <input className   = {`profile__input ${inputControl?.errors?.email && "profile__input_error"}`}
+                 type        = "email" 
+                 name        = "email" 
+                 id          = "profileEmail" 
                  required
-                 placeholder={currentUser.email}
-                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                 value={inputControl?.values?.email ?? currentUser.email}
-                 onChange={inputControl.handleChange}
-                 disabled={isUnlock && "disabled"}
+                 placeholder = {currentUser.email}
+                 pattern     = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                 value       = {inputControl?.values?.email ?? currentUser.email}
+                 onChange    = {inputControl.handleChange}
+                 disabled    = {isUnlock && "disabled"}
                  />
           <label className="profile__label"  htmlFor="profileEmail">E-mail</label>
         </div>

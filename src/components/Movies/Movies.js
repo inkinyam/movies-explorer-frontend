@@ -4,6 +4,9 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
 import { startMovies } from "../../consts/movies";
+import ShowMore from "../ShowMore/ShowMore";
+
+
 
 const Movies = () => {
   return (
@@ -13,6 +16,7 @@ const Movies = () => {
         <SearchFrom />
         <MoviesCardList movies={startMovies}
                         savedMoviesStatus={true}/>
+        <ShowMore/>
       </main>
       <Footer/>
     </>

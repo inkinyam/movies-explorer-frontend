@@ -16,9 +16,9 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 
 const App = () => {
-  const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [loggedIn, setLoggedIn]  = React.useState(false); 
+  const [email, setEmail]         = React.useState('');
+  const [name, setName]           = React.useState('');
+  const [loggedIn, setLoggedIn]   = React.useState(false); 
   const [textError, setTextError] = React.useState('');
   
   /*установка контекста для пользователя*/
@@ -132,29 +132,35 @@ const App = () => {
 /* возвращаемый объект */
   return (
       <div className="app">
-        <CurrentUserContext.Provider value={currentUser}>
+        <CurrentUserContext.Provider value = {currentUser}>
          <Routes> 
-            <Route path="*" element = {<NotFound />} />
+            <Route path="*" element  = {<NotFound />} />
             <Route  path="/" element = {<Main loggedIn={loggedIn}/>} />
-            <Route path="/signup" element = {<Register onRegister={onRegister} textError={textError}/> } /> 
-            <Route path="/signin" element = {<Login  onLogin={onLogin} textError={textError}/> } /> 
+            <Route path="/signup" 
+                   element = {
+                    <Register onRegister = {onRegister} 
+                              textError  = {textError}/> } /> 
+            <Route path="/signin" 
+                   element = {
+                     <Login  onLogin  = {onLogin} 
+                             textError = {textError}/> } /> 
 
             <Route  path="/movies" element = { 
-              <ProtectedRoute loggedIn={loggedIn} >
+              <ProtectedRoute loggedIn = {loggedIn} >
                 <Movies />  
               </ProtectedRoute>   
             } />
 
             <Route  path="/savedmovies" element = { 
-              <ProtectedRoute loggedIn={loggedIn} >
+              <ProtectedRoute loggedIn = {loggedIn} >
                 <SavedMovies />  
               </ProtectedRoute>   
             } />
 
           <Route  path="/profile" element = { 
-              <ProtectedRoute loggedIn={loggedIn} >
-                <Profile onSignOut={onSignOut}
-                        onUpdateUser={handleUpdateUser}
+              <ProtectedRoute loggedIn = {loggedIn} >
+                <Profile onSignOut   = {onSignOut}
+                        onUpdateUser = {handleUpdateUser}
                         />  
               </ProtectedRoute>   
             } />

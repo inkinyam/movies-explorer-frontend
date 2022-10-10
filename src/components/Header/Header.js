@@ -2,9 +2,7 @@ import React from 'react';
 import MainLogo from '../../images/main-logo.svg';
 import { Link, NavLink } from 'react-router-dom';
 
-const Header = ({isVisible}) => {
- // const classNames = (`header ${isVisible ? '' : ' header_hide'}`); 
-
+const Header = () => {
 
   return (
     <header className='header'>

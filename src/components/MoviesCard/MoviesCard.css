@@ -41,6 +41,7 @@
   margin: 0;
 }
 
+
 .movieCard__save {
   width: 30px;
   height: 30px;
@@ -53,10 +54,21 @@
   border: none;
   outline: none;
   background-color: transparent;
+
+  transition: opacity .2s ease-in;
 }
 
-.movieCard__save_active {
+.movieCard__save:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.movieCard__save_saved {
   background-image: url(../../images/savebutton-active.svg);
+}
+
+.movieCard__save_delete {
+  background-image: url(../../images/savebutton-delete.svg);
 }
 
 .movieCard__img {
@@ -67,4 +79,9 @@
   max-height: 203px;
   object-fit: cover;
   object-position: center;
+}
+
+.movieCard__link {
+  text-decoration: none;
+  color: inherit;
 }

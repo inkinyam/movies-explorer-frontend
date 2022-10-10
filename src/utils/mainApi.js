@@ -1,5 +1,5 @@
- import { BASE_URL } from "./consts";
- 
+ //import { BASE_URL } from "./consts";
+ const BASE_URL = 'https://api.movies.inkinyam.nomoredomains.sbs';
  class mainApi {
   constructor (baseUrl, {headers}) {
     this.baseUrl = baseUrl;

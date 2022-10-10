@@ -10,7 +10,6 @@
 /build
 
 # misc
-consts.js
 .DS_Store
 .env.local
 .env.development.local
