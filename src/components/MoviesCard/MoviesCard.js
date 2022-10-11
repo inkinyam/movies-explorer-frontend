@@ -1,9 +1,6 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
 
-
-const MoviesCard = ({title, duration, thumbnail, href, handleSaveMovie, movie, isSaved, isOwn}) => {
-  const location = useLocation();
+const MoviesCard = ({title, duration, thumbnail, href, handleCardButtonClick, movie, isSaved}) => {
 
   const getDurationFilm = (duration) => {
     if (duration > 60) {
@@ -17,8 +14,8 @@ const MoviesCard = ({title, duration, thumbnail, href, handleSaveMovie, movie, i
     }
   }
   
-  const handleSaveButtonClick = () => {
-    handleSaveMovie(location.pathname === '/savedmovies' ? movie._id : movie);
+  const handleMovieButtonClick= () => {
+    handleCardButtonClick(movie)
   }
     
  
@@ -29,12 +26,12 @@ const MoviesCard = ({title, duration, thumbnail, href, handleSaveMovie, movie, i
           <h3 className="movieCard__title">{title}</h3>
           <p className="movieCard__time-info"> {getDurationFilm(duration)}</p>
         </div>
-        <button className = {'movieCard__save' + (isSaved? 'movieCard__save_saved': '') + (isOwn? 'movieCard__save_delete': '')} 
-                onClick   = {handleSaveButtonClick}></button>
+        <button className = {'movieCard__save' +(isSaved ? 'movieCard__save_saved' : '') } 
+                onClick   = {handleMovieButtonClick}></button>
       </div>
-      <Link className="movieCard__link" to={href} target="_blank" title={title}>
+      <a rel="noreferrer" className="movieCard__link" href={href} target="_blank" title={title}>
         <img className="movieCard__img" src={thumbnail} alt="title"></img>
-      </Link>
+      </a>
     </div>
   );
 }

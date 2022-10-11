@@ -1,4 +1,5 @@
  //import { BASE_URL } from "./consts";
+ const THUMBNAIL_PATH = 'https://api.nomoreparties.co';
  const BASE_URL = 'https://api.movies.inkinyam.nomoredomains.sbs';
  class mainApi {
   constructor (baseUrl, {headers}) {
@@ -49,34 +50,26 @@
   }
 
 // метод, который реализует отправление карточки на сервер
-  postMovie (country, director, duration, year, description, image, trailerLink, thumbnail, nameRu, nameEn){
-    return fetch (`${this.baseUrl}/cards`, {
+  saveMovie (movie){
+    return fetch (`${this.baseUrl}/movies`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'POST',
-      body: JSON.stringify({country: country, 
-                            director: director, 
-                            duration: duration,
-                            year: year, 
-                            description: description, 
-                            image: image, 
-                            trailerLink: trailerLink, 
-                            thumbnail: thumbnail, 
-                            nameRu: nameRu, 
-                            nameEn: nameEn
+      body: JSON.stringify({country: movie.country, 
+                            director: movie.director, 
+                            duration: movie.duration,
+                            year: movie.year, 
+                            description: movie.description, 
+                            image: THUMBNAIL_PATH + movie.image.url, 
+                            trailerLink: movie.trailerLink, 
+                            thumbnail: THUMBNAIL_PATH + movie.image.formats.thumbnail.url, 
+                            nameRU: movie.nameRU, 
+                            nameEN: movie.nameEN,
+                            movieId: movie.id
                           }),
     })
     .then (res => {return this._checkRes(res)})
   }
 
-// метод, который реализует установку лайка на карточку
-  saveMovie(movie){
-    return fetch (`${this.baseUrl}/movies`, {
-      headers: {...this.headers, ...this._getHeaders()},
-      method: 'POST',
-      body: JSON.stringify(movie)
-    })
-    .then (res => {return this._checkRes(res)})
-  }
 
 // метод, который реализует удаление лайка с карточки
   unsaveMovie (moviedId){

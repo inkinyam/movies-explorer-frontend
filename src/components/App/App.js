@@ -10,7 +10,7 @@ import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import { useLocation } from 'react-router-dom';
  import api from "../../utils/mainApi";
-/*import moviesApi from '../../utils/MoviesApi'; */
+import moviesApi from '../../utils/MoviesApi';
 import * as movieAuth from "../../utils/movieAuth";
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
 
@@ -26,7 +26,7 @@ const App = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-
+  /*--------------------------------------------работа с данными юзера------------------------------------------- */
   /*проверка jwt*/
   const checkToken = () => {
   const jwt = localStorage.getItem('jwt');
@@ -129,6 +129,60 @@ const App = () => {
     navigate('/');
   };
 
+
+/*-------------------------------------------работа с данными по фильмам------------------------------------------- */
+const [movies, setMovies] = React.useState([]);
+const [savedMovies, setSavedMovies] = React.useState([]);
+
+
+
+React.useEffect(() => {
+  if (loggedIn) {
+  moviesApi.getMovies()
+    .then((data) => {
+        setMovies(data);
+      })
+      .catch((err) => {
+        console.error(`Проблемы с получением фильмов: ${err}`);
+      });
+  }
+}, [loggedIn]);
+
+const handleSaveMovie = (movie) => {
+  api.saveMovie(movie)
+    .then((savedMovie) => {
+      setSavedMovies((movies) => [savedMovie,...movies]);
+      console.log(savedMovies);
+      console.log('фильм сохранен')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+const handleUnSaveMovie = (movie) => {
+  api.unsaveMovie(movie.id)
+    .then((res) => {
+      setSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id))
+      console.log('фильм удален из сохраненок')
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+ // Сохранение фильмов
+const handleCardButtonClick = (movie) => {
+  const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
+  if (isSaved) {
+    const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
+    handleUnSaveMovie(savedMovie);
+  } else {
+    handleSaveMovie(movie);
+  }
+}
+
+
 /* возвращаемый объект */
   return (
       <div className="app">
@@ -147,13 +201,18 @@ const App = () => {
 
             <Route  path="/movies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <Movies />  
+                <Movies movies                = {movies}
+                        savedMovies           = {savedMovies}
+                        handleCardButtonClick = {handleCardButtonClick}
+                        />  
               </ProtectedRoute>   
             } />
 
             <Route  path="/savedmovies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <SavedMovies />  
+                <SavedMovies movies  = {savedMovies}
+                             handleUnSaveMovie = {handleUnSaveMovie}
+                             />  
               </ProtectedRoute>   
             } />
 

@@ -3,19 +3,20 @@ import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-import { startMovies } from "../../consts/movies";
 import ShowMore from "../ShowMore/ShowMore";
 
 
 
-const Movies = () => {
+const Movies = ({movies, savedMovies, handleCardButtonClick}) => {
   return (
     <>
       <main className="movies">
         <Navigation />
         <SearchFrom />
-        <MoviesCardList movies={startMovies}
-                        savedMoviesStatus={true}/>
+         <MoviesCardList movies              = {movies}
+                       handleCardButtonClick = {handleCardButtonClick}
+                      
+                      />
         <ShowMore/>
       </main>
       <Footer/>

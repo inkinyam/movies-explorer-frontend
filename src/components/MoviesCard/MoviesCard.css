@@ -17,6 +17,7 @@
 
   box-sizing: border-box;
   padding: 14px;
+  min-height: 86px;
 }
 
 .movieCard__text {

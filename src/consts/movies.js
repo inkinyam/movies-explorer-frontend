@@ -93,7 +93,7 @@ exports.startMovies = [
       "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/bf93b465-1189-4155-9dd1-cb9fb5cb1bb5/300x",
     nameRU: "1+1",
     nameEN: "1+1",
-  },
+   },
 ];
 
 exports.savedMovies = [
