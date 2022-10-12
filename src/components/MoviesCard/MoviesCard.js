@@ -13,26 +13,26 @@ const MoviesCard = ({title, duration, thumbnail, href, handleCardButtonClick, mo
         return result;
     }
   }
-  
+   
   const handleMovieButtonClick= () => {
     handleCardButtonClick(movie)
   }
     
  
   return  (
-    <div className="movieCard">
+    <li className="movieCard">
       <div className="movieCard__info">
         <div className="movieCard__text">
           <h3 className="movieCard__title">{title}</h3>
           <p className="movieCard__time-info"> {getDurationFilm(duration)}</p>
         </div>
-        <button className = {'movieCard__save' +(isSaved ? 'movieCard__save_saved' : '') } 
+        <button className = {'movieCard__save ' +(isSaved ? 'movieCard__save_saved' : '') } 
                 onClick   = {handleMovieButtonClick}></button>
       </div>
       <a rel="noreferrer" className="movieCard__link" href={href} target="_blank" title={title}>
         <img className="movieCard__img" src={thumbnail} alt="title"></img>
       </a>
-    </div>
+    </li>
   );
 }
 

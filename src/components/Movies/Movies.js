@@ -13,8 +13,9 @@ const Movies = ({movies, savedMovies, handleCardButtonClick}) => {
       <main className="movies">
         <Navigation />
         <SearchFrom />
-         <MoviesCardList movies              = {movies}
-                       handleCardButtonClick = {handleCardButtonClick}
+         <MoviesCardList movies                = {movies}
+                         savedMovies           = {savedMovies}
+                         handleCardButtonClick = {handleCardButtonClick}
                       
                       />
         <ShowMore/>

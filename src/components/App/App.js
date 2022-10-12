@@ -131,7 +131,7 @@ const App = () => {
 
 
 /*-------------------------------------------работа с данными по фильмам------------------------------------------- */
-const [movies, setMovies] = React.useState([]);
+const [movies, setMovies]           = React.useState([]);
 const [savedMovies, setSavedMovies] = React.useState([]);
 
 
@@ -150,9 +150,7 @@ React.useEffect(() => {
 
 const handleSaveMovie = (movie) => {
   api.saveMovie(movie)
-    .then((savedMovie) => {
-      setSavedMovies((movies) => [savedMovie,...movies]);
-      console.log(savedMovies);
+    .then((savedMovie) => {setSavedMovies((movies) => [...movies, savedMovie]);
       console.log('фильм сохранен')
     })
     .catch((err) => {
@@ -161,7 +159,7 @@ const handleSaveMovie = (movie) => {
 }
 
 const handleUnSaveMovie = (movie) => {
-  api.unsaveMovie(movie.id)
+  api.unsaveMovie(movie._id)
     .then((res) => {
       setSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id))
       console.log('фильм удален из сохраненок')
@@ -171,7 +169,7 @@ const handleUnSaveMovie = (movie) => {
     })
 }
 
- // Сохранение фильмов
+ // Обработчик клика  на кнопку в карточке
 const handleCardButtonClick = (movie) => {
   const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
   if (isSaved) {
@@ -210,8 +208,9 @@ const handleCardButtonClick = (movie) => {
 
             <Route  path="/savedmovies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <SavedMovies movies  = {savedMovies}
-                             handleUnSaveMovie = {handleUnSaveMovie}
+                <SavedMovies movies                = {movies}
+                             savedMovies           = {savedMovies}
+                             handleCardButtonClick = {handleCardButtonClick}
                              />  
               </ProtectedRoute>   
             } />

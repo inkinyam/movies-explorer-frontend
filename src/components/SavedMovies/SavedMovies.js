@@ -5,14 +5,17 @@ import Footer from "../Footer/Footer";
 
 import { savedMovies } from "../../consts/movies";
 
-const SavedMovies = () => {
+const SavedMovies = ({movies, savedMovies, handleCardButtonClick}) => {
   return (
     <>
       <main className="movies">
         <Navigation />
         <SearchFrom />
-        <MoviesCardList movies={savedMovies}
-                      savedMoviesStatus={false}/>
+        <MoviesCardList  movies                = {movies}
+                         savedMovies           = {savedMovies}
+                         handleCardButtonClick = {handleCardButtonClick}
+                      
+                      />
       </main>
       <Footer/>
     </>

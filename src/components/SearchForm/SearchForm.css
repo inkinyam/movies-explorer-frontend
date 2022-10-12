@@ -48,7 +48,7 @@
 
 .searchigForm__input:focus.searchigForm__input_error {
   border-bottom: 1px solid #EE3465;
-  background-image: url(../../images/find-icon-error.jpg);
+  background-image: url(../../images/find-icon-error.svg);
 }
 
 .searchigForm__error {
