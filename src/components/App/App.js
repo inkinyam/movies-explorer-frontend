@@ -1,5 +1,7 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext'; 
+
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -8,11 +10,11 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
-import { useLocation } from 'react-router-dom';
- import api from "../../utils/mainApi";
+
+import api from "../../utils/mainApi";
 import moviesApi from '../../utils/MoviesApi';
 import * as movieAuth from "../../utils/movieAuth";
-import { CurrentUserContext } from '../../context/CurrentUserContext'; 
+
 
 
 const App = () => {
@@ -21,13 +23,13 @@ const App = () => {
   const [loggedIn, setLoggedIn]   = React.useState(false); 
   const [textError, setTextError] = React.useState('');
   
-  /*установка контекста для пользователя*/
+  // установка контекста для пользователя
   const [currentUser, getCurrentUser] = React.useState({});
 
   const navigate = useNavigate();
   const location = useLocation();
   /*--------------------------------------------работа с данными юзера------------------------------------------- */
-  /*проверка jwt*/
+  // проверка jwt
   const checkToken = () => {
   const jwt = localStorage.getItem('jwt');
 
@@ -65,13 +67,14 @@ const App = () => {
 
   React.useEffect(() => {
     checkToken();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //очистка ошибки 
   const clearTextError = () => { 
     setTimeout(() => setTextError(''), 10000) };
 
- //апдейт данных юзера
+  //апдейт данных юзера
   const handleUpdateUser = ({name, email}) => {
     api.postUserData(name, email)
       .then((userData)=>{
@@ -122,47 +125,102 @@ const App = () => {
     
   }
 
-  /*удаляем из local storage токен и разлогиниваемся*/
+  // удаляем из local storage токен и разлогиниваемся
   const onSignOut = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('savedMovies');
     setLoggedIn(false);
     navigate('/');
   };
 
-
 /*-------------------------------------------работа с данными по фильмам------------------------------------------- */
-const [movies, setMovies]           = React.useState([]);
+const [allMovies, setAllMovies]     = React.useState([]);
 const [savedMovies, setSavedMovies] = React.useState([]);
 
+const savedSearchText = (localStorage.getItem('searchText') !== 'undefined' )   
+                         ? localStorage.getItem('searchText') 
+                         : '';
 
+const savedCheckboxState = (localStorage.getItem('checkboxState') !== 'undefined') 
+                            ? JSON.parse(localStorage.getItem('checkboxState')) 
+                            : false;
+const savedFoundedMovies  = (localStorage.getItem('foundedMovies') !== 'undefined') 
+                              ? JSON.parse(localStorage.getItem('foundedMovies')) 
+                              : [];
 
+const [searchText, setSearchText]        = React.useState(savedSearchText);
+const [checkboxState, setCheckboxState]  = React.useState(savedCheckboxState);
+const [foundedMovies, setFoundedMovies ] = React.useState(savedFoundedMovies);
+
+// Сохранение параметров поиска в localStorage
 React.useEffect(() => {
-  if (loggedIn) {
+  localStorage.setItem('searchText', searchText);
+  localStorage.setItem('checkboxState', checkboxState);
+  localStorage.setItem('foundedMovies', JSON.stringify(foundedMovies));
+}, [searchText, checkboxState, foundedMovies]);
+
+
+// получение фильмов с бестфильм
+const getMoviesFromApi = () => {
   moviesApi.getMovies()
     .then((data) => {
-        setMovies(data);
+      setAllMovies(data);
       })
       .catch((err) => {
         console.error(`Проблемы с получением фильмов: ${err}`);
       });
-  }
-}, [loggedIn]);
+}
 
+function handleCheckboxClick() {
+  setCheckboxState(!checkboxState);
+  if (allMovies.length === 0) {
+    getMoviesFromApi()
+  };
+}
+
+
+const handleSubmitSearchingForm = (searchText, checkboxState) => {
+  setCheckboxState(checkboxState);
+  setSearchText(searchText);
+  if (allMovies.length === 0) {
+    getMoviesFromApi();
+  }
+  searchingMovie(allMovies, checkboxState,  searchText)
+}
+
+// функция для поиска фильмов
+const searchingMovie = (allMovies, checkedState, text) => {
+  let foundedMovies = allMovies;
+  if (checkedState === true) {foundedMovies = foundedMovies.filter((movie) => movie.duration <= 40)}
+  foundedMovies = foundedMovies.filter((movie) => movie.nameRU.toLowerCase().includes(text.toLowerCase()));
+  return foundedMovies;
+}
+
+// Поиск фильмов
+React.useEffect(() => {
+  if (allMovies) { 
+   const foundedMovies = searchingMovie(allMovies,checkboxState, searchText);
+   setFoundedMovies(foundedMovies);
+  }
+}, [allMovies, checkboxState, searchText]);
+
+
+
+// сохранение видео 
 const handleSaveMovie = (movie) => {
   api.saveMovie(movie)
     .then((savedMovie) => {setSavedMovies((movies) => [...movies, savedMovie]);
-      console.log('фильм сохранен')
     })
     .catch((err) => {
       console.log(err);
     })
 }
 
+// удаление видео 
 const handleUnSaveMovie = (movie) => {
   api.unsaveMovie(movie._id)
     .then((res) => {
-      setSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id))
-      console.log('фильм удален из сохраненок')
+      setSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id));
     })
     .catch((err) => {
       console.log(err);
@@ -179,6 +237,7 @@ const handleCardButtonClick = (movie) => {
     handleSaveMovie(movie);
   }
 }
+
 
 
 /* возвращаемый объект */
@@ -199,18 +258,27 @@ const handleCardButtonClick = (movie) => {
 
             <Route  path="/movies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <Movies movies                = {movies}
-                        savedMovies           = {savedMovies}
-                        handleCardButtonClick = {handleCardButtonClick}
+                <Movies movies                    = {foundedMovies}
+                        savedMovies               = {savedMovies}
+                        handleCardButtonClick     = {handleCardButtonClick}
+                        handleCheckboxClick       = {handleCheckboxClick}
+                        handleSubmitSearchingForm = {handleSubmitSearchingForm}
+                        savedCheckboxState        = {savedCheckboxState}
+                        savedSearchText           = {savedSearchText}
+
                         />  
               </ProtectedRoute>   
             } />
 
             <Route  path="/savedmovies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <SavedMovies movies                = {movies}
-                             savedMovies           = {savedMovies}
-                             handleCardButtonClick = {handleCardButtonClick}
+                <SavedMovies movies                    = {allMovies}
+                             savedMovies               = {savedMovies}
+                             handleCardButtonClick     = {handleUnSaveMovie}
+                             handleCheckboxClick       = {handleCheckboxClick}
+                             handleSubmitSearchingForm = {handleSubmitSearchingForm}
+                             savedCheckboxState        = {savedCheckboxState}
+                             savedSearchText           = {savedSearchText}
                              />  
               </ProtectedRoute>   
             } />

@@ -36,11 +36,11 @@ const MoviesCardList = ({ movies, savedMovies,  preloader, handleCardButtonClick
       {location.pathname === '/savedmovies' && savedMovies.map((movie) => {
                 return (
                   <MoviesCard
-                    key                     = {movie.id}
+                    key                     = {movie._id}
                     movieId                 = {movie.id}
                     title                   = {movie.nameRU}
                     duration                = {movie.duration}
-                    thumbnail               = {THUMBNAIL_PATH + movie.image.formats.thumbnail.url}
+                    thumbnail               = {movie.thumbnail}
                     href                    = {movie.trailerLink}
                     movie                   = {movie}
                     handleCardButtonClick   = {handleCardButtonClick}

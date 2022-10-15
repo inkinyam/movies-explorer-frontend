@@ -1,6 +1,9 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const MoviesCard = ({title, duration, thumbnail, href, handleCardButtonClick, movie, isSaved}) => {
+  const location = useLocation();
+
 
   const getDurationFilm = (duration) => {
     if (duration > 60) {
@@ -18,7 +21,11 @@ const MoviesCard = ({title, duration, thumbnail, href, handleCardButtonClick, mo
     handleCardButtonClick(movie)
   }
     
- 
+ const cardButtonClassllist = (location.pathname === '/movies')
+  ? 'movieCard__save ' +(isSaved ? 'movieCard__save_saved' : '')
+  : 'movieCard__save movieCard__save_delete'
+
+
   return  (
     <li className="movieCard">
       <div className="movieCard__info">
@@ -26,7 +33,7 @@ const MoviesCard = ({title, duration, thumbnail, href, handleCardButtonClick, mo
           <h3 className="movieCard__title">{title}</h3>
           <p className="movieCard__time-info"> {getDurationFilm(duration)}</p>
         </div>
-        <button className = {'movieCard__save ' +(isSaved ? 'movieCard__save_saved' : '') } 
+        <button className = {cardButtonClassllist } 
                 onClick   = {handleMovieButtonClick}></button>
       </div>
       <a rel="noreferrer" className="movieCard__link" href={href} target="_blank" title={title}>

@@ -75,10 +75,10 @@
 
 .movieCard__img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16/9;
+  display: block;
   background-color: rgb(172, 172, 172);
 
-  max-height: 203px;
   object-fit: cover;
   object-position: center;
 }

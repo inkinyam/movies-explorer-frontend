@@ -7,16 +7,19 @@ import ShowMore from "../ShowMore/ShowMore";
 
 
 
-const Movies = ({movies, savedMovies, handleCardButtonClick}) => {
+const Movies = ({movies, savedMovies, handleCardButtonClick, handleCheckboxClick, handleSubmitSearchingForm, savedCheckboxState, savedSearchText}) => {
   return (
     <>
       <main className="movies">
         <Navigation />
-        <SearchFrom />
-         <MoviesCardList movies                = {movies}
-                         savedMovies           = {savedMovies}
-                         handleCardButtonClick = {handleCardButtonClick}
-                      
+        <SearchFrom handleCheckboxClick       = {handleCheckboxClick}
+                    handleSubmitSearchingForm = {handleSubmitSearchingForm}
+                    savedCheckboxState        = {savedCheckboxState}
+                    savedSearchText           = {savedSearchText}/>
+
+        <MoviesCardList movies                = {movies}
+                        savedMovies           = {savedMovies}
+                        handleCardButtonClick = {handleCardButtonClick}
                       />
         <ShowMore/>
       </main>

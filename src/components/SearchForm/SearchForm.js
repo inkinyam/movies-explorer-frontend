@@ -1,70 +1,44 @@
 import React from "react";
+import { useInputValidator } from "../../utils/customHooks/inputValidator";
 
-const SearchFrom = () => {
-const [isChecked, onClickCheckbox] = React.useState(false);
-
-const handleClickCheckbox = () => {
-  onClickCheckbox(!isChecked);
-} 
-
-const checkboxCLassList = isChecked 
-  ? 'searchigForm__checkbox searchigForm__checkbox_checked' 
-  : 'searchigForm__checkbox ' ;
-
-  
-const [isSearching, setIsSearching] = React.useState({
-  error: '',
-  searchingText: '',
-  isFormValid: true,
-});
+const SearchFrom = ({handleCheckboxClick, handleSubmitSearchingForm, savedCheckboxState, savedSearchText}) => {
+  const inputControl = useInputValidator();
+  const {searchingText}   = inputControl.errors;
 
 
-const errorClassList = (isSearching.error !== '')
-  ? "searchigForm__error" 
-  : "searchigForm__error searchigForm__error_show";
+  const handleSearchingSubmit = (e) => {
+    e.preventDefault();
+    let shortMoviesFilter = savedCheckboxState;
+    let {searchingText} = inputControl.values;
+    handleSubmitSearchingForm(searchingText, shortMoviesFilter);
+  } 
 
-const handleInputChange = (evt) => {
-  setIsSearching({
-      ...isSearching,
-      error: '',
-      [evt.target.name]: evt.target.value,
-      isFormValid: evt.target.closest('.searchingForm').checkValidity(),
-  });
-}
-
-const handleSearchingSubmit = (evt) => {
-  evt.preventDefault();
-  setIsSearching({
-      ...isSearching,
-      isFormValid: evt.target.closest('.searchingForm').checkValidity(),
-  });
-  if (!setIsSearching.isFormValid) {
-      return setIsSearching({
-          ...isSearching,
-          error: 'Нужно ввести ключевое слово',
-      });
-  }
-//  onSubmit(setIsSearching.searchingText);
-
-}
-
+    const errorClassList = (inputControl?.errors?.searchingText)
+      ? "searchigForm__error" 
+      : "searchigForm__error searchigForm__error_show";
   return (
     <form className = "searchingForm" noValidate onSubmit={handleSearchingSubmit}>
-      <input className   = {`searchigForm__input ${!isSearching.isFormValid && "searchigForm__input_error"}`}
+      <input className   = {`searchigForm__input ${inputControl?.errors?.searchingText!== "" && "searchigForm__input_error"}`}
              placeholder = "Фильм"
+             type        = "text"
              name        = "searchingText"
+             id          = "searchingText"
              required
-             minLength   = '1'
-             value       = {setIsSearching.searchingText}
-             onChange    = {handleInputChange}
+             minLength   = '0'
+             value       = {inputControl?.values?.searchingText ? inputControl.values.searchingText : savedSearchText}
+             onChange    = {inputControl.handleChange}
              />
-      <span className = {errorClassList}>{isSearching.error}</span>
+      <span className = {errorClassList}>{searchingText}</span>
       <button type="submit" className="searchigForm__submit"></button>
 
        <div className="searchigForm__toggler">
           <input type      = "checkbox" 
-                 className = {checkboxCLassList} 
-                 onClick   = {handleClickCheckbox} id="shortmovie" />
+                 name      = "shortMoviesFilter"
+                 id        = "shortMoviesFilter"
+                 className = "searchigForm__checkbox"  
+                 checked   = {inputControl?.values?.shortMoviesFilter ? inputControl.values.shortMoviesFilter : savedCheckboxState}
+                 onClick = {handleCheckboxClick}
+                 onChange  = {inputControl.handleChange}/>
           <div className="searchigForm__knobs"></div>
           <div className="searchigForm__layer"></div>
           <label htmlFor="shortmovie" className="searchingForm__toggler-description">Короткометражки</label>

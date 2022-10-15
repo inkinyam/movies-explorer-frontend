@@ -3,14 +3,19 @@ import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-import { savedMovies } from "../../consts/movies";
+const SavedMovies = ({movies, savedMovies, handleCardButtonClick, handleCheckboxClick, handleSubmitSearchingForm, savedCheckboxState, savedSearchText}) => {
 
-const SavedMovies = ({movies, savedMovies, handleCardButtonClick}) => {
+
   return (
     <>
       <main className="movies">
         <Navigation />
-        <SearchFrom />
+        <SearchFrom handleCheckboxClick       = {handleCheckboxClick}
+                    handleSubmitSearchingForm = {handleSubmitSearchingForm}
+                    savedCheckboxState        = {savedCheckboxState}
+                    savedSearchText           = {savedSearchText}
+                    />
+
         <MoviesCardList  movies                = {movies}
                          savedMovies           = {savedMovies}
                          handleCardButtonClick = {handleCardButtonClick}

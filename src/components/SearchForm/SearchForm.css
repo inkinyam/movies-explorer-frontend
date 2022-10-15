@@ -171,17 +171,17 @@
   border-radius: 20px;
 }
 
- .searchigForm__checkbox_checked:active + .searchigForm__knobs:before {
+ .searchigForm__checkbox:checked:active + .searchigForm__knobs:before {
   margin-left: -18px;
 }
 
- .searchigForm__checkbox_checked + .searchigForm__knobs:before {
+ .searchigForm__checkbox:checked + .searchigForm__knobs:before {
   content: "";
   left: 18px;
   background-color: #ffffff;
 }
 
-.searchigForm__checkbox_checked ~ .searchigForm__layer {
+.searchigForm__checkbox:checked ~ .searchigForm__layer {
   background-color: #2BE080;
 }
 
