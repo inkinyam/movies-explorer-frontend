@@ -128,36 +128,56 @@ const App = () => {
   // удаляем из local storage токен и разлогиниваемся
   const onSignOut = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('token');
+    localStorage.removeItem('searchText');
+    localStorage.removeItem('savedSearchText');
+    localStorage.removeItem('checkboxState');
+    localStorage.removeItem('foundedMovies');
     localStorage.removeItem('savedMovies');
+    localStorage.removeItem('foundedSavedMovies');
+
     setLoggedIn(false);
     navigate('/');
+    console.log(localStorage);
   };
 
 /*-------------------------------------------работа с данными по фильмам------------------------------------------- */
-const [allMovies, setAllMovies]     = React.useState([]);
-const [savedMovies, setSavedMovies] = React.useState([]);
-
-const savedSearchText = (localStorage.getItem('searchText') !== 'undefined' )   
+const storageSearchText = (localStorage.getItem('searchText') )   
                          ? localStorage.getItem('searchText') 
                          : '';
 
-const savedCheckboxState = (localStorage.getItem('checkboxState') !== 'undefined') 
-                            ? JSON.parse(localStorage.getItem('checkboxState')) 
+const storageCheckboxState =  (localStorage.getItem('checkboxState')) 
+                            ? JSON.parse(localStorage.getItem('checkboxState'))  
                             : false;
-const savedFoundedMovies  = (localStorage.getItem('foundedMovies') !== 'undefined') 
+
+const storageSavedCheckboxState =  (localStorage.getItem('savedCheckboxState')) 
+                            ? JSON.parse(localStorage.getItem('savedCheckboxState'))  
+                            : false;
+
+const storageFoundedMovies  = (localStorage.getItem('foundedMovies'))
                               ? JSON.parse(localStorage.getItem('foundedMovies')) 
                               : [];
+                             
+const storageSavedMovies  = (localStorage.getItem('savedMovies')) 
+                            ? JSON.parse(localStorage.getItem('savedMovies')) 
+                            : [];
 
-const [searchText, setSearchText]        = React.useState(savedSearchText);
-const [checkboxState, setCheckboxState]  = React.useState(savedCheckboxState);
-const [foundedMovies, setFoundedMovies ] = React.useState(savedFoundedMovies);
+const [searchText, setSearchText]        = React.useState(storageSearchText);
+const [checkboxState, setCheckboxState]  = React.useState(storageCheckboxState);
+const [savedCheckboxState, setSavedCheckboxState]  = React.useState(storageSavedCheckboxState);
+const [foundedMovies, setFoundedMovies ] = React.useState(storageFoundedMovies);
+
+const [allMovies, setAllMovies]     = React.useState([]);
+const [savedMovies, setSavedMovies] = React.useState(storageSavedMovies);
+const [foundedSavedMovies, setFoundedSavedMovies ] = React.useState(savedMovies);
 
 // Сохранение параметров поиска в localStorage
 React.useEffect(() => {
   localStorage.setItem('searchText', searchText);
   localStorage.setItem('checkboxState', checkboxState);
   localStorage.setItem('foundedMovies', JSON.stringify(foundedMovies));
-}, [searchText, checkboxState, foundedMovies]);
+  localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+}, [searchText, checkboxState, foundedMovies, savedMovies]);
 
 
 // получение фильмов с бестфильм
@@ -171,6 +191,9 @@ const getMoviesFromApi = () => {
       });
 }
 
+
+
+// обработка клика для чекбокса в movies
 function handleCheckboxClick() {
   setCheckboxState(!checkboxState);
   if (allMovies.length === 0) {
@@ -178,7 +201,7 @@ function handleCheckboxClick() {
   };
 }
 
-
+// обработка сабмита в movies
 const handleSubmitSearchingForm = (searchText, checkboxState) => {
   setCheckboxState(checkboxState);
   setSearchText(searchText);
@@ -188,11 +211,33 @@ const handleSubmitSearchingForm = (searchText, checkboxState) => {
   searchingMovie(allMovies, checkboxState,  searchText)
 }
 
+// обработка клика для чекбокса в savedmovies
+function handleSavedCheckboxClick() {
+  setSavedCheckboxState(!savedCheckboxState);
+  setSearchText(searchText);
+  if (savedMovies.length === 0) {
+    console.log('искать негде');
+  }
+  setFoundedSavedMovies(searchingMovie(savedMovies, !savedCheckboxState,  searchText));
+}
+
+
+// обработка сабмита в savedmovies
+const handleSubmitSaveSearchingForm = (searchText, savedCheckboxState) => {
+  setSavedCheckboxState(!savedCheckboxState);
+  setSearchText(searchText);
+  if (savedMovies.length === 0) {
+    console.log('искать негде');
+  }
+  setFoundedSavedMovies(searchingMovie(savedMovies, savedCheckboxState,  searchText));
+}
+
+
 // функция для поиска фильмов
-const searchingMovie = (allMovies, checkedState, text) => {
-  let foundedMovies = allMovies;
-  if (checkedState === true) {foundedMovies = foundedMovies.filter((movie) => movie.duration <= 40)}
-  foundedMovies = foundedMovies.filter((movie) => movie.nameRU.toLowerCase().includes(text.toLowerCase()));
+const searchingMovie = (movies, checkboxState, searchText) => {
+  let foundedMovies = movies;
+  if (checkboxState === true) {foundedMovies = foundedMovies.filter((movie) => movie.duration <= 40)}
+  foundedMovies = foundedMovies.filter((movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()));
   return foundedMovies;
 }
 
@@ -209,7 +254,9 @@ React.useEffect(() => {
 // сохранение видео 
 const handleSaveMovie = (movie) => {
   api.saveMovie(movie)
-    .then((savedMovie) => {setSavedMovies((movies) => [...movies, savedMovie]);
+    .then((savedMovie) => {
+      setSavedMovies((movies) => [...movies, savedMovie]);
+      setFoundedSavedMovies((movies) => [...movies, savedMovie]);
     })
     .catch((err) => {
       console.log(err);
@@ -221,6 +268,7 @@ const handleUnSaveMovie = (movie) => {
   api.unsaveMovie(movie._id)
     .then((res) => {
       setSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id));
+      setFoundedSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id));
     })
     .catch((err) => {
       console.log(err);
@@ -263,22 +311,21 @@ const handleCardButtonClick = (movie) => {
                         handleCardButtonClick     = {handleCardButtonClick}
                         handleCheckboxClick       = {handleCheckboxClick}
                         handleSubmitSearchingForm = {handleSubmitSearchingForm}
-                        savedCheckboxState        = {savedCheckboxState}
-                        savedSearchText           = {savedSearchText}
-
-                        />  
+                        storageCheckboxState      = {storageCheckboxState}
+                        storageSearchText         = {storageSearchText}
+                       />  
               </ProtectedRoute>   
             } />
 
             <Route  path="/savedmovies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <SavedMovies movies                    = {allMovies}
+                <SavedMovies movies                    = {foundedSavedMovies}
                              savedMovies               = {savedMovies}
                              handleCardButtonClick     = {handleUnSaveMovie}
-                             handleCheckboxClick       = {handleCheckboxClick}
-                             handleSubmitSearchingForm = {handleSubmitSearchingForm}
-                             savedCheckboxState        = {savedCheckboxState}
-                             savedSearchText           = {savedSearchText}
+                             handleCheckboxClick       = {handleSavedCheckboxClick}
+                             handleSubmitSearchingForm = {handleSubmitSaveSearchingForm}
+                             storageCheckboxState      = {storageSavedCheckboxState}
+                             storageSearchText         = {storageSearchText}
                              />  
               </ProtectedRoute>   
             } />

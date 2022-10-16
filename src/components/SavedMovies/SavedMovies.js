@@ -3,8 +3,7 @@ import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-const SavedMovies = ({movies, savedMovies, handleCardButtonClick, handleCheckboxClick, handleSubmitSearchingForm, savedCheckboxState, savedSearchText}) => {
-
+const SavedMovies = ({movies, savedMovies, handleCardButtonClick, handleCheckboxClick, handleSubmitSearchingForm, storageCheckboxState, storageSearchText}) => {
 
   return (
     <>
@@ -12,8 +11,8 @@ const SavedMovies = ({movies, savedMovies, handleCardButtonClick, handleCheckbox
         <Navigation />
         <SearchFrom handleCheckboxClick       = {handleCheckboxClick}
                     handleSubmitSearchingForm = {handleSubmitSearchingForm}
-                    savedCheckboxState        = {savedCheckboxState}
-                    savedSearchText           = {savedSearchText}
+                    storageCheckboxState       = {storageCheckboxState}
+                    storageSearchText         = {storageSearchText}
                     />
 
         <MoviesCardList  movies                = {movies}
