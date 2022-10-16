@@ -8,7 +8,7 @@
   border: none;
   outline: none;
   padding: 0;
-  margin: 0 auto 80px;
+  margin: 40px auto 0;
 
   width: 320px;
   height: 36px;
@@ -24,6 +24,10 @@
 .showmore:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.showmore_hide {
+  display: none;
 }
 
 @media screen and (max-width: 580px) {

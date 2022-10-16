@@ -3,11 +3,14 @@ import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-import ShowMore from "../ShowMore/ShowMore";
-
-
-
-const Movies = ({movies, savedMovies, handleCardButtonClick, handleCheckboxClick, handleSubmitSearchingForm, storageCheckboxState, storageSearchText}) => {
+const Movies = ({ movies, 
+                  savedMovies, 
+                  handleCardButtonClick, 
+                  handleCheckboxClick, 
+                  handleSubmitSearchingForm, 
+                  storageCheckboxState, 
+                  storageSearchText,
+                  isLoading }) => {
   return (
     <>
       <main className="movies">
@@ -20,8 +23,9 @@ const Movies = ({movies, savedMovies, handleCardButtonClick, handleCheckboxClick
         <MoviesCardList movies                = {movies}
                         savedMovies           = {savedMovies}
                         handleCardButtonClick = {handleCardButtonClick}
+                        isLoading             = {isLoading}
                       />
-        <ShowMore/>
+
       </main>
       <Footer/>
     </>
