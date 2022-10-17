@@ -63,6 +63,9 @@ const App = () => {
         })
         .catch((err) => {
           console.error(`Проблемы с получением данных пользователя: ${err}`);
+        })
+        .finally(()=> {
+          setTimeout(() => clearTextError(), 1000)
         });
     }
   }, [loggedIn]);
@@ -85,7 +88,13 @@ const App = () => {
       .then((userData)=>{
         getCurrentUser(userData.user);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err)
+        setTextError(err.status === 400 ? 'Вы указали некорректные данные' : 'При обновлении данных пользователя произошла ошибка.');
+      })
+      .finally(()=> {
+        setTimeout(() => clearTextError(), 1000)
+      });
   }
 
 
@@ -158,11 +167,11 @@ const App = () => {
                               ? JSON.parse(localStorage.getItem('savedCheckboxState'))  
                               : false;
 
-  const storageFoundedMovies  = (localStorage.getItem('foundedMovies'))
+  const storageFoundedMovies  = (localStorage.getItem('foundedMovies')!=='undefined')||localStorage.getItem('foundedMovies')
                               ? JSON.parse(localStorage.getItem('foundedMovies')) 
                               : [];
                               
-  const storageSavedMovies  = (localStorage.getItem('savedMovies')) 
+  const storageSavedMovies  = (localStorage.getItem('savedMovies')!=='undefined') 
                               ? JSON.parse(localStorage.getItem('savedMovies')) 
                               : [];
 
@@ -192,10 +201,11 @@ const App = () => {
         setAllMovies(data);
       })
       .catch((err) => {
-        setTextError(`Проблемы с получением фильмов: ${err}`);
+        setTextError(err.status === 401 ? 'Вам нужно авторизоваться' : 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.');
       })
       .finally(() => {
         setIsLoading(false);
+        setTimeout(() => clearTextError(), 1000)
       });
   }
 
@@ -223,9 +233,10 @@ const App = () => {
     setSavedCheckboxState(!savedCheckboxState);
     setSearchText(searchText);
     if (savedMovies.length === 0) {
-      console.log('искать негде');
+      setTextError('Ничего не найдено');
     }
     setFoundedSavedMovies(searchingMovie(savedMovies, !savedCheckboxState,  searchText));
+    setTimeout(() => clearTextError(), 1000)
   }
 
 
@@ -234,9 +245,10 @@ const App = () => {
     setSavedCheckboxState(!savedCheckboxState);
     setSearchText(searchText);
     if (savedMovies.length === 0) {
-      console.log('искать негде');
+      setTextError('Ничего не найдено');
     }
     setFoundedSavedMovies(searchingMovie(savedMovies, savedCheckboxState,  searchText));
+    setTimeout(() => clearTextError(), 1000)
   }
 
 
@@ -245,7 +257,12 @@ const App = () => {
     let foundedMovies = movies;
     if (checkboxState === true) {foundedMovies = foundedMovies.filter((movie) => movie.duration <= 40)}
     foundedMovies = foundedMovies.filter((movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()));
+    if (foundedMovies.length === 0) {
+      return  setTextError('Ничего не найдено');
+    }
+    setTimeout(() => clearTextError(), 1000);
     return foundedMovies;
+    
   }
 
   React.useEffect(() => {
@@ -267,7 +284,11 @@ const App = () => {
       })
       .catch((err) => {
         console.log(err);
+        setTextError(err.status === 401 ? 'Вам нужно авторизоваться' : 'При сохранении фильма произошла ошибка.');
       })
+      .finally(() => {
+        setTimeout(() => clearTextError(), 1000)
+      });
   }
 
   // удаление фильма в своей базе  
@@ -278,8 +299,11 @@ const App = () => {
         setFoundedSavedMovies((movies) => movies.filter((savedMovie) => savedMovie._id !== movie._id));
       })
       .catch((err) => {
-        console.log(err);
+        setTextError(err.status === 403 ? 'Нельзя удалить фильм, который был сохранен не Вами' : 'При удалении фильма произошла ошибка.');
       })
+      .finally(() => {
+        setTimeout(() => clearTextError(), 1000)
+      });
   }
 
   // Обработчик клика  на кнопку в карточке
@@ -320,6 +344,7 @@ const App = () => {
                         storageCheckboxState      = {storageCheckboxState}
                         storageSearchText         = {storageSearchText}
                         isLoading                 = {isLoading}
+                        textError                 = {textError}
                        />  
               </ProtectedRoute>   
             } />
@@ -333,6 +358,7 @@ const App = () => {
                              handleSubmitSearchingForm = {handleSubmitSaveSearchingForm}
                              storageCheckboxState      = {storageSavedCheckboxState}
                              storageSearchText         = {storageSearchText}
+                             textError                 = {textError}
                              />  
               </ProtectedRoute>   
             } />

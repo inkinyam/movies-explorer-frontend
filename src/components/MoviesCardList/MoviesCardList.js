@@ -19,7 +19,7 @@ const MoviesCardList = ({ movies, savedMovies,  preloader, handleCardButtonClick
   const [width, setWidth] = React.useState(window.innerWidth);
 
  
-  let showMoreClassList = !(movies.length > 3) ||  countOfShowedMovies >= movies.length  ? 'showmore showmore_hide' : 'showmore';
+  let showMoreClassList = movies? !(movies.length > 3) ||  countOfShowedMovies >= movies.length  ? 'showmore showmore_hide' : 'showmore' : 'showmore showmore showmore_hide';
 
   React.useEffect(() => {
     const handleWindowResize = () => {
