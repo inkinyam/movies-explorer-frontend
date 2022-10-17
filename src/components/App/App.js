@@ -167,12 +167,14 @@ const App = () => {
                               ? JSON.parse(localStorage.getItem('savedCheckboxState'))  
                               : false;
 
-  const storageFoundedMovies  = (localStorage.getItem('foundedMovies')!=='undefined')||localStorage.getItem('foundedMovies')
+  const storageFoundedMovies  = (localStorage.getItem('foundedMovies')!=='undefined')
                               ? JSON.parse(localStorage.getItem('foundedMovies')) 
                               : [];
                               
-  const storageSavedMovies  = (localStorage.getItem('savedMovies')!=='undefined') 
+  const storageSavedMovies  = (localStorage.getItem('savedMovies')!=='null')
+                              ? (localStorage.getItem('savedMovies')!=='undefined')
                               ? JSON.parse(localStorage.getItem('savedMovies')) 
+                              : []
                               : [];
 
   const [searchText, setSearchText]                  = React.useState(storageSearchText);
@@ -195,7 +197,6 @@ const App = () => {
 
   // получение фильмов с бестфильм
   const getMoviesFromApi = () => {
-    setIsLoading(true);
     moviesApi.getMovies()
       .then((data) => {
         setAllMovies(data);
@@ -211,6 +212,7 @@ const App = () => {
 
   // обработка клика для чекбокса в movies
   function handleCheckboxClick() {
+    setIsLoading(true);
     setCheckboxState(!checkboxState);
     if (allMovies.length === 0) {
       getMoviesFromApi()
@@ -234,9 +236,9 @@ const App = () => {
     setSearchText(searchText);
     if (savedMovies.length === 0) {
       setTextError('Ничего не найдено');
+      setTimeout(() => clearTextError(), 1000);
     }
     setFoundedSavedMovies(searchingMovie(savedMovies, !savedCheckboxState,  searchText));
-    setTimeout(() => clearTextError(), 1000)
   }
 
 
@@ -246,9 +248,10 @@ const App = () => {
     setSearchText(searchText);
     if (savedMovies.length === 0) {
       setTextError('Ничего не найдено');
+      setTimeout(() => clearTextError(), 1000);
     }
     setFoundedSavedMovies(searchingMovie(savedMovies, savedCheckboxState,  searchText));
-    setTimeout(() => clearTextError(), 1000)
+  
   }
 
 
@@ -258,9 +261,9 @@ const App = () => {
     if (checkboxState === true) {foundedMovies = foundedMovies.filter((movie) => movie.duration <= 40)}
     foundedMovies = foundedMovies.filter((movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()));
     if (foundedMovies.length === 0) {
-      return  setTextError('Ничего не найдено');
+      setTextError('Ничего не найдено');
+      setTimeout(() => clearTextError(), 1000);
     }
-    setTimeout(() => clearTextError(), 1000);
     return foundedMovies;
     
   }
@@ -271,6 +274,7 @@ const App = () => {
     setFoundedMovies(foundedMovies);
     setIsLoading(false);
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMovies, checkboxState, searchText]);
 
 

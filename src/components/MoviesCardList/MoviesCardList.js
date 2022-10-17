@@ -5,7 +5,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import ShowMore from "../ShowMore/ShowMore";
 
-const MoviesCardList = ({ movies, savedMovies,  preloader, handleCardButtonClick, isLoading}) => {
+const MoviesCardList = ({ movies, savedMovies,  handleCardButtonClick, isLoading, textError}) => {
   
   const THUMBNAIL_PATH = 'https://api.nomoreparties.co';
   const location = useLocation();
@@ -19,7 +19,7 @@ const MoviesCardList = ({ movies, savedMovies,  preloader, handleCardButtonClick
   const [width, setWidth] = React.useState(window.innerWidth);
 
  
-  let showMoreClassList = movies? !(movies.length > 3) ||  countOfShowedMovies >= movies.length  ? 'showmore showmore_hide' : 'showmore' : 'showmore showmore showmore_hide';
+  let showMoreClassList = !(movies.length > 3) ||  countOfShowedMovies >= movies.length  ? 'showmore showmore_hide' : 'showmore';
 
   React.useEffect(() => {
     const handleWindowResize = () => {
@@ -52,10 +52,12 @@ const MoviesCardList = ({ movies, savedMovies,  preloader, handleCardButtonClick
     setCountOfShowedMovies((movies) => movies + countOfMoreMovies);
   };
 
+  const errorsClassList = (movies.length === 0) ? "movieCardList__error profile__error_show" : "movieCardList__error";
 
   return (
     <div className="movieCardList">
       {isLoading && <Preloader />}
+      <p className={errorsClassList}>{textError}</p>
       <ul className="movieCardList__list">
       
       {location.pathname === '/movies' && movies.slice(0, countOfShowedMovies).map((movie) => {

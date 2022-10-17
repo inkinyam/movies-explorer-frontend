@@ -10,7 +10,8 @@ const Movies = ({ movies,
                   handleSubmitSearchingForm, 
                   storageCheckboxState, 
                   storageSearchText,
-                  isLoading }) => {
+                  isLoading,
+                  textError }) => {
   return (
     <>
       <main className="movies">
@@ -24,6 +25,7 @@ const Movies = ({ movies,
                         savedMovies           = {savedMovies}
                         handleCardButtonClick = {handleCardButtonClick}
                         isLoading             = {isLoading}
+                        textError             = {textError}
                       />
 
       </main>
