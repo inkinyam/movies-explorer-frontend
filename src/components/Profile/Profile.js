@@ -1,9 +1,10 @@
 import React from 'react';
 import Navigation from '../Navigation/Navigation';
+import Preloader from '../Preloader/Preloader';
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
 import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
-const Profile = ({onUpdateUser ,onSignOut}) => {
+const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
   const currentUser             = React.useContext(CurrentUserContext);
   const [isUnlock, setIsUnlock] = React.useState(true);
 
@@ -22,7 +23,7 @@ const Profile = ({onUpdateUser ,onSignOut}) => {
   const button = isUnlock 
     ? <button type      = "button"  
               className = "profile__button profile__button_v_edit" 
-              onClick   = {toggleStateInput}> Редактириовать </button>
+              onClick   = {toggleStateInput}> Редактировать </button>
 
     : <button type      = "submit" 
               className = {`profile__button profile__button_v_edit ${(!isValid && 'profile__button_disable')}`}
@@ -86,7 +87,7 @@ const Profile = ({onUpdateUser ,onSignOut}) => {
                  maxLength   = "40" 
                  required 
                  pattern     = "[A-Za-zА-Яа-яЁё\s-]+"
-                 value       = {inputControl?.values?.name ?? currentUser.name}
+                 value       = {inputControl.values.name!=='undefined'? inputControl.values.name: currentUser.name}
                  onChange    = {inputControl.handleChange}
                  disabled    = {isUnlock && "disabled"}
                 />
@@ -100,15 +101,17 @@ const Profile = ({onUpdateUser ,onSignOut}) => {
                  required
                  placeholder = {currentUser.email}
                  pattern     = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                 value       = {inputControl?.values?.email ?? currentUser.email}
+                 value       = {inputControl.values.email!=='undefined'? inputControl.values.email: currentUser.email}
                  onChange    = {inputControl.handleChange}
                  disabled    = {isUnlock && "disabled"}
                  />
           <label className="profile__label"  htmlFor="profileEmail">E-mail</label>
         </div>
-
-        <span className={errorClassName}>{name}{email}</span> 
         <span className={succesClassName}>Изменения произведены успешно!</span> 
+        {isLoading && <Preloader/>}
+        <span className={errorClassName}>{name}{email}</span> 
+        
+      
 
         {button}
         <button type="button" className="profile__button profile__button_v_exit" onClick={onSignOut}>Выйти из аккаунта</button> 

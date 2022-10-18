@@ -1,6 +1,7 @@
- //import { BASE_URL } from "./consts";
- const THUMBNAIL_PATH = 'https://api.nomoreparties.co';
- const BASE_URL = 'https://api.movies.inkinyam.nomoredomains.sbs';
+
+ import { SERVER_URL } from "./consts";
+ import { MOVIE_SERVER_URL } from "./consts";
+
  class mainApi {
   constructor (baseUrl, {headers}) {
     this.baseUrl = baseUrl;
@@ -59,9 +60,9 @@
                             duration: movie.duration,
                             year: movie.year, 
                             description: movie.description, 
-                            image: THUMBNAIL_PATH + movie.image.url, 
+                            image: MOVIE_SERVER_URL + movie.image.url, 
                             trailerLink: movie.trailerLink, 
-                            thumbnail: THUMBNAIL_PATH + movie.image.formats.thumbnail.url, 
+                            thumbnail: MOVIE_SERVER_URL + movie.image.formats.thumbnail.url, 
                             nameRU: movie.nameRU, 
                             nameEN: movie.nameEN,
                             movieId: movie.id
@@ -82,10 +83,10 @@
  }
 
 /*создаем и экспортируем экземпляр класса api для использования в App*/ 
-const api = new mainApi (BASE_URL, {
+const api = new mainApi (SERVER_URL, {
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:3000' // !!!!!!!!!!!!!!!!!!!!!! поменять потом
+    'Access-Control-Allow-Origin': 'http://localhost:3000'
   }
 })
 

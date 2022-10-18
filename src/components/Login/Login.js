@@ -24,7 +24,7 @@ const Login = ({onLogin, textError}) => {
       <Link to="/" className='auth__link auth__link_v_title' ><img src={MainLogo} alt="mainlogo" className="auth__logo" /></Link>
       <h2 className="auth__title">Рады видеть!</h2>
 
-      <form className = 'auth__form' onSubmit={handleSubmit}>
+      <form className = 'auth__form' onSubmit={handleSubmit}  noValidate>
         <label className = 'auth__label'  htmlFor = 'email'>E-mail</label>
         <input className = {`auth__input ${inputControl?.errors?.email && "auth__input_error"}`}
                type        = "text" 

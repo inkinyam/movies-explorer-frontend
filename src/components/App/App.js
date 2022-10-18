@@ -50,7 +50,7 @@ const App = () => {
       })
       .catch((err) => {
         onSignOut();
-        console.error(err);
+        setTextError(`При авторизации пользователя произошла ошибка: ${err}`);
       });
     }
   };
@@ -62,10 +62,10 @@ const App = () => {
           getCurrentUser(data);
         })
         .catch((err) => {
-          console.error(`Проблемы с получением данных пользователя: ${err}`);
+          setTextError(`Проблемы с получением данных пользователя: ${err}`);
         })
         .finally(()=> {
-          setTimeout(() => clearTextError(), 1000)
+          setTimeout(() => setTextError(""), 10000);
         });
     }
   }, [loggedIn]);
@@ -77,23 +77,20 @@ const App = () => {
   }, []);
 
 
-  //очистка ошибки 
-  const clearTextError = () => { 
-    setTimeout(() => setTextError(''), 10000) };
-
 
   //апдейт данных юзера
   const handleUpdateUser = ({name, email}) => {
+    setIsLoading(true);
     api.postUserData(name, email)
       .then((userData)=>{
         getCurrentUser(userData.user);
       })
       .catch((err) => {
-        console.error(err)
         setTextError(err.status === 400 ? 'Вы указали некорректные данные' : 'При обновлении данных пользователя произошла ошибка.');
       })
       .finally(()=> {
-        setTimeout(() => clearTextError(), 1000)
+        setTimeout(() => setTextError(""), 10000);
+        setIsLoading(false);
       });
   }
 
@@ -107,11 +104,10 @@ const App = () => {
        }
       })
       .catch((err) => { 
-        console.log(err);
         setTextError(err.status === 409 ? 'Пользователь с таким email уже зарегистрирован' : 'При регистрации пользователя произошла ошибка.');
       })
       .finally(()=> {
-        setTimeout(() => clearTextError(), 1000)
+        setTimeout(() => setTextError(""), 10000);
       })
   }
 
@@ -131,11 +127,10 @@ const App = () => {
         })
       })
       .catch((err) => { 
-        console.log(err);
         setTextError(err.status === 401 ? 'Вы ввели неправильный логин или пароль.' : 'При авторизации произошла ошибка.');
       })
       .finally(()=> {
-        setTimeout(() => clearTextError(), 1000)
+        setTimeout(() => setTextError(""), 10000);
       })
     
   }
@@ -206,7 +201,7 @@ const App = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        setTimeout(() => clearTextError(), 1000)
+        setTimeout(() => setTextError(""), 10000);
       });
   }
 
@@ -231,14 +226,12 @@ const App = () => {
   }
 
   // обработка клика для чекбокса в savedmovies
-  function handleSavedCheckboxClick() {
+  function handleSavedCheckboxClick(savedCheckboxState) {
     setSavedCheckboxState(!savedCheckboxState);
     setSearchText(searchText);
     if (savedMovies.length === 0) {
-      setTextError('Ничего не найдено');
-      setTimeout(() => clearTextError(), 1000);
     }
-    setFoundedSavedMovies(searchingMovie(savedMovies, !savedCheckboxState,  searchText));
+    setFoundedSavedMovies(searchingMovie(savedMovies, savedCheckboxState,  searchText));
   }
 
 
@@ -246,9 +239,7 @@ const App = () => {
   const handleSubmitSaveSearchingForm = (searchText, savedCheckboxState) => {
     setSavedCheckboxState(!savedCheckboxState);
     setSearchText(searchText);
-    if (savedMovies.length === 0) {
-      setTextError('Ничего не найдено');
-      setTimeout(() => clearTextError(), 1000);
+    if (savedMovies.length === 0&&location.pathname === '/savedmovies'&&loggedIn) {
     }
     setFoundedSavedMovies(searchingMovie(savedMovies, savedCheckboxState,  searchText));
   
@@ -260,9 +251,9 @@ const App = () => {
     let foundedMovies = movies;
     if (checkboxState === true) {foundedMovies = foundedMovies.filter((movie) => movie.duration <= 40)}
     foundedMovies = foundedMovies.filter((movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()));
-    if (foundedMovies.length === 0) {
+    if (foundedMovies.length === 0&&location.pathname === '/movies'&&loggedIn) {
       setTextError('Ничего не найдено');
-      setTimeout(() => clearTextError(), 1000);
+      setTimeout(() => setTextError(""), 10000);
     }
     return foundedMovies;
     
@@ -291,7 +282,7 @@ const App = () => {
         setTextError(err.status === 401 ? 'Вам нужно авторизоваться' : 'При сохранении фильма произошла ошибка.');
       })
       .finally(() => {
-        setTimeout(() => clearTextError(), 1000)
+        setTimeout(() => setTextError(""), 10000);
       });
   }
 
@@ -306,7 +297,7 @@ const App = () => {
         setTextError(err.status === 403 ? 'Нельзя удалить фильм, который был сохранен не Вами' : 'При удалении фильма произошла ошибка.');
       })
       .finally(() => {
-        setTimeout(() => clearTextError(), 1000)
+        setTimeout(() => setTextError(""), 10000);
       });
   }
 
@@ -371,6 +362,7 @@ const App = () => {
               <ProtectedRoute loggedIn = {loggedIn} >
                 <Profile onSignOut   = {onSignOut}
                         onUpdateUser = {handleUpdateUser}
+                        isLoading    = {isLoading}
                         />  
               </ProtectedRoute>   
             } />

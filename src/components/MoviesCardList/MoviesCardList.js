@@ -4,10 +4,10 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import ShowMore from "../ShowMore/ShowMore";
+import { MOVIE_SERVER_URL } from "../../utils/consts";
 
 const MoviesCardList = ({ movies, savedMovies,  handleCardButtonClick, isLoading, textError}) => {
-  
-  const THUMBNAIL_PATH = 'https://api.nomoreparties.co';
+
   const location = useLocation();
 
   function isMovieSaved(movie) {
@@ -67,7 +67,7 @@ const MoviesCardList = ({ movies, savedMovies,  handleCardButtonClick, isLoading
               movieId                 = {movie.id}
               title                   = {movie.nameRU}
               duration                = {movie.duration}
-              thumbnail               = {THUMBNAIL_PATH + movie.image.formats.thumbnail.url}
+              thumbnail               = {MOVIE_SERVER_URL + movie.image.formats.thumbnail.url}
               href                    = {movie.trailerLink}
               movie                   = {movie}
               handleCardButtonClick   = {handleCardButtonClick}

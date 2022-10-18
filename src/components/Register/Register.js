@@ -25,7 +25,7 @@ const Register = ({onRegister, textError}) => {
       <Link to="/" className='auth__link auth__link_v_title' ><img src={MainLogo} alt="mainlogo" className="auth__logo" /></Link>
       <h2 className="auth__title">Добро пожаловать!</h2>
 
-      <form className = 'auth__form' onSubmit={handleSubmit}>
+      <form className = 'auth__form' onSubmit={handleSubmit} noValidate>
         <label className = 'auth__label' htmlFor = 'name'>Имя</label>
         <input className   = {`auth__input ${inputControl?.errors?.name && "auth__input_error"}`}
                type        = "text" 

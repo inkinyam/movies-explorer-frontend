@@ -2,31 +2,30 @@ import React from "react";
 
 const SearchFrom = ({handleCheckboxClick, handleSubmitSearchingForm, storageCheckboxState, storageSearchText}) => {
   
+  
   const [searchFormState, setSearchFormState] = React.useState({
         error: '',
         searchingText: storageSearchText,
         shortMoviesFilter: storageCheckboxState,
         isValid: storageSearchText? true : false
-});
-
-
-
-const handleInputChange = (e) => {
-  setSearchFormState({
-      ...searchFormState,
-      error: '',
-      [e.target.name]: e.target.value,
-      isValid: e.target.closest('form').checkValidity(),
   });
-}
 
-const handleCheckBoxChange = (e) => {
-  handleCheckboxClick();
-  setSearchFormState({
-    ...searchFormState,
-    shortMoviesFilter: e.target.checked
-  })
-}
+  const handleInputChange = (e) => {
+    setSearchFormState({
+        ...searchFormState,
+        error: '',
+        [e.target.name]: e.target.value,
+        isValid: e.target.closest('form').checkValidity(),
+    });
+  }
+
+  const handleCheckBoxChange = (e) => {
+    handleCheckboxClick(e.target.checked);
+    setSearchFormState({
+      ...searchFormState,
+      shortMoviesFilter: e.target.checked
+    })
+  }
 
   const handleSearchingSubmit = (e) => {
     e.preventDefault();
