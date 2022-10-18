@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom';
 import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
 const Register = ({onRegister, textError}) => {
-
+  const [isValid, setIsValid]     = React.useState(false);
   const inputControl              = useInputValidator();
   const { name, email, password } = inputControl.errors;
+
+
+  React.useEffect(() => {
+    setIsValid(inputControl.isValid)
+  }, [ inputControl.isValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,7 +72,11 @@ const Register = ({onRegister, textError}) => {
                />
         <span className = {`auth__err ${inputControl?.errors?.password && "auth__err_show"}`}>{password}</span>
         <span className = {authErrorClassName}>{textError}</span> 
-        <button type="submit" className="auth__submit">Зарегистрироваться</button>
+        <button type="submit" 
+                className={`auth__submit ${(!isValid && 'auth__submit_disabled')}`}
+                disabled  = {(!isValid && 'disabled')}>
+                  Зарегистрироваться
+        </button>
         <p className='auth__advice'>Уже зарегистрированы? <Link className='auth__link' to="/signin">Войти</Link></p>
       </form>
 

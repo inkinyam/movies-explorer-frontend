@@ -278,7 +278,6 @@ const App = () => {
         setFoundedSavedMovies((movies) => [...movies, savedMovie]);
       })
       .catch((err) => {
-        console.log(err);
         setTextError(err.status === 401 ? 'Вам нужно авторизоваться' : 'При сохранении фильма произошла ошибка.');
       })
       .finally(() => {

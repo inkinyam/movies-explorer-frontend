@@ -5,8 +5,14 @@ import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
 
 const Login = ({onLogin, textError}) => {
-  const inputControl        = useInputValidator();
-  const { email, password } = inputControl.errors;
+  const [isValid, setIsValid] = React.useState(false);
+  const inputControl          = useInputValidator();
+  const { email, password }   = inputControl.errors;
+
+  React.useEffect(() => {
+    setIsValid(inputControl.isValid)
+  }, [ inputControl.isValid]);
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -53,7 +59,11 @@ const Login = ({onLogin, textError}) => {
         <span className = {`auth__err ${inputControl?.errors?.password && "auth__err_show"}`}>{password}</span>
         <span className = {authErrorClassName}>{textError}</span> 
         
-        <button type="submit" className="auth__submit">Войти</button>
+        <button type="submit" 
+                className={`auth__submit ${(!isValid && 'auth__submit_disabled')}`}
+                disabled  = {(!isValid && 'disabled')}>
+                Войти
+        </button>
         <p className='auth__advice'>Еще не зарегистрированы? <Link className='auth__link' to="/signup">Регистрация</Link></p>
       </form>
 
