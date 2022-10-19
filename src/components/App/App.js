@@ -15,6 +15,8 @@ import api from "../../utils/mainApi";
 import moviesApi from '../../utils/MoviesApi';
 import * as movieAuth from "../../utils/movieAuth";
 
+import correctFormatFilm from '../../utils/correctFormatFilm';
+
 
 
 const App = () => {
@@ -194,6 +196,7 @@ const App = () => {
   const getMoviesFromApi = () => {
     moviesApi.getMovies()
       .then((data) => {
+     //   data = data.map(correctFormatFilm);
         setAllMovies(data);
       })
       .catch((err) => {
@@ -359,9 +362,9 @@ const App = () => {
 
           <Route  path="/profile" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >
-                <Profile onSignOut   = {onSignOut}
-                        onUpdateUser = {handleUpdateUser}
-                        isLoading    = {isLoading}
+                <Profile onSignOut    = {onSignOut}
+                         onUpdateUser = {handleUpdateUser}
+                         isLoading    = {isLoading}
                         />  
               </ProtectedRoute>   
             } />
