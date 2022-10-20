@@ -92,6 +92,7 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
                  disabled    = {isUnlock && "disabled"}
                 />
           <label className = "profile__label" htmlFor = "profileName">Имя</label>
+          <span className={errorClassName}>{name}</span> 
         </div>
         <div className="profile__form-block">
           <input className   = {`profile__input ${inputControl?.errors?.email && "profile__input_error"}`}
@@ -106,11 +107,11 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
                  disabled    = {isUnlock && "disabled"}
                  />
           <label className="profile__label"  htmlFor="profileEmail">E-mail</label>
+          <span className={errorClassName}>{email}</span> 
         </div>
         <span className={succesClassName}>Изменения произведены успешно!</span> 
         {isLoading && <Preloader/>}
-        <span className={errorClassName}>{name}{email}</span> 
-        
+             
       
 
         {button}

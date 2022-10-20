@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import UnAuthRoute from '../UnAuthRoute/UnAuthRoute';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -146,6 +147,7 @@ const App = () => {
     localStorage.removeItem('savedCheckboxState');
     localStorage.removeItem('foundedMovies');
     localStorage.removeItem('savedMovies');
+    getCurrentUser([]);
 
     setLoggedIn(false);
     navigate('/');
@@ -314,22 +316,25 @@ const App = () => {
     }
   }
 
-
+/*   UnAuthRoute */
 /* возвращаемый объект */
   return (
       <div className="app">
         <CurrentUserContext.Provider value = {currentUser}>
          <Routes> 
-            <Route path="*" element  = {<NotFound />} />
-            <Route  path="/" element = {<Main loggedIn={loggedIn}/>} />
-            <Route path="/signup" 
-                   element = {
-                    <Register onRegister = {onRegister} 
-                              textError  = {textError}/> } /> 
-            <Route path="/signin" 
-                   element = {
-                     <Login  onLogin  = {onLogin} 
-                             textError = {textError}/> } /> 
+            <Route path = "*" element  = {<NotFound />} />
+            <Route path = "/" element = {<Main loggedIn={loggedIn}/>} />
+            <Route path = "/signup" 
+                   element = { <UnAuthRoute loggedIn = {loggedIn}>
+                                 <Register onRegister = {onRegister} 
+                                           textError  = {textError}/> 
+                               </UnAuthRoute>}  />
+                              
+            <Route path = "/signin" 
+                   element = { <UnAuthRoute loggedIn = {loggedIn}>
+                                 <Login onLogin    = {onLogin} 
+                                        textError  = {textError}/> 
+                               </UnAuthRoute>}  />
 
             <Route  path="/movies" element = { 
               <ProtectedRoute loggedIn = {loggedIn} >

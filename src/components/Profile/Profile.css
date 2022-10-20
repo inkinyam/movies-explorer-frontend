@@ -32,12 +32,14 @@
 
 .profile__form-block {
   width: 100%;
-  height: 45px;
+  height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #E8E8E8;
+
+  position: relative;
 }
 
 .profile__form-block:last-of-type {
@@ -86,11 +88,14 @@ margin-bottom: 20%;
 
 
 .profile__error {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
   display: flex;
   align-items: center;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 15px;
+  font-size: 10px;
+  line-height: 12px;
   color: #EE3465;
   max-width: 100%;
   margin:  0;
@@ -104,16 +109,15 @@ margin-bottom: 20%;
 .profile__error_show {
   opacity: 1;
   height: auto;
-  margin:  0 auto;
-  min-height: 200px;
+
 }
 
 .profile__succes {
   display: flex;
   align-items: center;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 15px;
+  font-size: 11px;
+  line-height: 12px;
   color: #2BE080;
   max-width: 100%;
   margin:  0;
