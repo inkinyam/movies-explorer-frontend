@@ -198,7 +198,7 @@ const App = () => {
   const getMoviesFromApi = () => {
     moviesApi.getMovies()
       .then((data) => {
-     //   data = data.map(correctFormatFilm);
+        data = data.map(correctFormatFilm);
         setAllMovies(data);
       })
       .catch((err) => {
@@ -307,9 +307,9 @@ const App = () => {
 
   // Обработчик клика  на кнопку в карточке
   const handleCardButtonClick = (movie) => {
-    const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
+    const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === movie.movieId);
     if (isSaved) {
-      const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
+      const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.movieId);
       handleUnSaveMovie(savedMovie);
     } else {
       handleSaveMovie(movie);

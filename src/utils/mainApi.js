@@ -1,6 +1,5 @@
 
  import { SERVER_URL } from "./consts";
- import { MOVIE_SERVER_URL } from "./consts";
 
  class mainApi {
   constructor (baseUrl, {headers}) {
@@ -60,12 +59,12 @@
                             duration: movie.duration,
                             year: movie.year, 
                             description: movie.description, 
-                            image: MOVIE_SERVER_URL + movie.image.url, 
+                            image: movie.image, 
                             trailerLink: movie.trailerLink, 
-                            thumbnail: MOVIE_SERVER_URL + movie.image.formats.thumbnail.url, 
+                            thumbnail: movie.thumbnail, 
                             nameRU: movie.nameRU, 
                             nameEN: movie.nameEN,
-                            movieId: movie.id
+                            movieId: movie.movieId
                           }),
     })
     .then (res => {return this._checkRes(res)})

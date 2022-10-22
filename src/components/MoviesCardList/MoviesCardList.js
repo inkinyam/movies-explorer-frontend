@@ -4,14 +4,13 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from "../Preloader/Preloader";
 import ShowMore from "../ShowMore/ShowMore";
-import { MOVIE_SERVER_URL } from "../../utils/consts";
 
 const MoviesCardList = ({ movies, savedMovies,  handleCardButtonClick, isLoading, textError}) => {
 
   const location = useLocation();
 
   function isMovieSaved(movie) {
-    return savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
+    return savedMovies.some((savedMovie) => savedMovie.movieId === movie.movieId);
   }
 
   const [countOfShowedMovies, setCountOfShowedMovies] = React.useState(0);
@@ -63,11 +62,11 @@ const MoviesCardList = ({ movies, savedMovies,  handleCardButtonClick, isLoading
       {location.pathname === '/movies' && movies.slice(0, countOfShowedMovies).map((movie) => {
           return (
             <MoviesCard
-              key                     = {movie.id}
-              movieId                 = {movie.id}
+              key                     = {movie.movieId}
+              movieId                 = {movie.movieId}
               title                   = {movie.nameRU}
               duration                = {movie.duration}
-              thumbnail               = {MOVIE_SERVER_URL + movie.image.formats.thumbnail.url}
+              thumbnail               = {movie.thumbnail}
               href                    = {movie.trailerLink}
               movie                   = {movie}
               handleCardButtonClick   = {handleCardButtonClick}
