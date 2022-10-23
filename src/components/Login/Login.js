@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
 
-const Login = ({onLogin, textError}) => {
+const Login = ({onLogin, textError, loggedIn}) => {
   const [isValid, setIsValid] = React.useState(false);
   const inputControl          = useInputValidator();
   const { email, password }   = inputControl.errors;
@@ -17,10 +17,13 @@ const Login = ({onLogin, textError}) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const { email, password } = inputControl.values;
-    onLogin(password, email)
-    inputControl.resetForm();
+    onLogin(password, email);
   }
     
+  React.useEffect (() => {
+    inputControl.resetForm();
+  }, [inputControl, loggedIn])
+
   const authErrorClassName = (textError === undefined)
     ? "auth__errText"
     : "auth__errText auth__errText_show"

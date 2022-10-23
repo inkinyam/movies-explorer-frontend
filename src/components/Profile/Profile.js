@@ -6,6 +6,7 @@ import { useInputValidator } from '../../utils/customHooks/inputValidator';
 
 const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
   const currentUser             = React.useContext(CurrentUserContext);
+
   const [isUnlock, setIsUnlock] = React.useState(true);
 
   const inputControl                    = useInputValidator();
@@ -20,7 +21,7 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
     setIsSucces(false);
   }; 
 
-  const button = isUnlock 
+  const button = !isUnlock 
     ? <button type      = "button"  
               className = "profile__button profile__button_v_edit" 
               onClick   = {toggleStateInput}> Редактировать </button>
@@ -39,8 +40,8 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
     : 'profile__succes';
 
 
-  React.useEffect(() => {
-    if (inputControl.values.name === currentUser.name &&
+    React.useEffect(() => {
+      if (inputControl.values.name === currentUser.name &&
         inputControl.values.email === currentUser.email) {
           setIsSameValues(false);
     } else {
@@ -51,24 +52,28 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
   React.useEffect(() => {
     setIsValid(inputControl.isValid && isSameValues)
   }, [isSameValues, inputControl.isValid]);
-
-
-  /*обработчик сабмита формы*/
-  function handleSubmit(e)  {
-    e.preventDefault();
-    let { name, email } = inputControl.values;
-      if (!name) {
-        name = currentUser.name;
-      } else if (!email) {
-        email = currentUser.email
-      } 
-      onUpdateUser({name, email});
-      setIsSucces(true);
-      setTimeout(() => setIsUnlock(!isUnlock), 1000);
-      setTimeout(() => setIsSucces(false), 1000);
-      inputControl.resetForm();
+  
+  
+    /*обработчик сабмита формы*/
+    function handleSubmit(e)  {
+      e.preventDefault();
+      let { name, email } = inputControl.values;
+        if (!name) {
+          name = currentUser.name;
+        } else if (!email) {
+          email = currentUser.email
+        } 
+        onUpdateUser({name, email});
     }
+    
 
+  React.useEffect(()=> {
+    setIsUnlock(false)
+    setIsSucces(true);
+    setTimeout(() => setIsSucces(false), 1000);
+    inputControl.resetForm();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser])
 
   return (
     <>
@@ -87,9 +92,9 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
                  maxLength   = "40" 
                  required 
                  pattern     = "[A-Za-zА-Яа-яЁё\s-]+"
-                 value       = {inputControl.values.name!=='undefined'? inputControl.values.name: currentUser.name}
+                 value       = {typeof inputControl.values.name !=='undefined'? inputControl.values.name : currentUser.name}
                  onChange    = {inputControl.handleChange}
-                 disabled    = {isUnlock && "disabled"}
+                 disabled    = {!isUnlock && "disabled"}
                 />
           <label className = "profile__label" htmlFor = "profileName">Имя</label>
           <span className={errorClassName}>{name}</span> 
@@ -102,9 +107,9 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
                  required
                  placeholder = {currentUser.email}
                  pattern     = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                 value       = {inputControl.values.email!=='undefined'? inputControl.values.email: currentUser.email}
+                 value       = {typeof inputControl.values?.email !=='undefined' ? inputControl.values.email: currentUser.email}
                  onChange    = {inputControl.handleChange}
-                 disabled    = {isUnlock && "disabled"}
+                 disabled    = {!isUnlock && "disabled"}
                  />
           <label className="profile__label"  htmlFor="profileEmail">E-mail</label>
           <span className={errorClassName}>{email}</span> 
