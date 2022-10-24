@@ -22,7 +22,7 @@ const Login = ({onLogin, textError, loggedIn}) => {
     
   React.useEffect (() => {
     inputControl.resetForm();
-  }, [inputControl, loggedIn])
+  }, [loggedIn])
 
   const authErrorClassName = (textError === undefined)
     ? "auth__errText"
