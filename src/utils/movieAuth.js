@@ -1,6 +1,5 @@
 // работа с api для регистрации и авторизации пользователя
-
-export const BASE_URL = 'https://api.inkinyam.nomoredomains.sbs';
+import { SERVER_URL } from "./consts";
 
 /*для проверки ответа от api*/
 const checkRes = (res) => {
@@ -11,13 +10,14 @@ const checkRes = (res) => {
 }
 
 /*функция для отправки запроса на регистрацию*/
-export const register = (password, email) => {
-  return fetch(`${BASE_URL}/signup`, {
+export const register = (password, email, name) => {
+  return fetch(`${SERVER_URL}/signup`, {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
                         password: password, 
-                        email: email 
+                        email: email,
+                        name: name
                         })
     })
     .then(checkRes);
@@ -25,7 +25,7 @@ export const register = (password, email) => {
 
 /*функция для отправки запроса на авторизацию*/
 export const authorize = (password, email) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${SERVER_URL}/signin`, {
     method: "POST",
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -38,7 +38,7 @@ export const authorize = (password, email) => {
 
 /*функция для отправки запроса на проверку токена*/
 export const checkToken = (jwt) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${SERVER_URL}/users/me`, {
     method: "GET",
     headers: { 'Content-Type': 'application/json',
                 Authorization: `Bearer ${jwt}`

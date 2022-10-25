@@ -4,7 +4,7 @@ import SectionTtile from '../SectionTitle/SectionTitle';
 const AboutMe = () => {
 
   return (
-    <section className="aboutMe">
+    <section id="aboutme" className="aboutMe">
       <SectionTtile  title ='Студент'/>
       <div className="aboutMe__about">
         <div className="aboutMe__text">

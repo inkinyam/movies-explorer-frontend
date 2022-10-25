@@ -1,17 +1,36 @@
+import Navigation from "../Navigation/Navigation";
 import SearchFrom from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-import { startMovies } from "../../const/movies";
-
-const Movies = () => {
+const Movies = ({ movies, 
+                  savedMovies, 
+                  handleCardButtonClick, 
+                  handleCheckboxClick, 
+                  handleSubmitSearchingForm, 
+                  storageCheckboxState, 
+                  storageSearchText,
+                  isLoading,
+                  textError }) => {
   return (
-    <section className="movies">
-      <SearchFrom />
-      <MoviesCardList movies={startMovies}
-                      savedMoviesStatus={true}/>
+    <>
+      <main className="movies">
+        <Navigation />
+        <SearchFrom handleCheckboxClick       = {handleCheckboxClick}
+                    handleSubmitSearchingForm = {handleSubmitSearchingForm}
+                    storageCheckboxState      = {storageCheckboxState}
+                    storageSearchText         = {storageSearchText}/>
+
+        <MoviesCardList movies                = {movies}
+                        savedMovies           = {savedMovies}
+                        handleCardButtonClick = {handleCardButtonClick}
+                        isLoading             = {isLoading}
+                        textError             = {textError}
+                      />
+
+      </main>
       <Footer/>
-    </section>
+    </>
    )
 };
 

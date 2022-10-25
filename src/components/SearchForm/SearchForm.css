@@ -24,8 +24,11 @@
   text-align: center;
 
   border-bottom: 1px solid #E8E8E8;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   transition: all 0.3s ease-in;
+
+  box-sizing: border-box;
+  padding: 0 40px;
 }
 
 .searchigForm__input::placeholder {
@@ -41,6 +44,27 @@
 .searchigForm__input:focus {
   border-bottom: 1px solid rgba(43, 224, 128, .5);
   background-image: url(../../images/find-icon-active.svg);
+}
+
+.searchigForm__input:focus.searchigForm__input_error {
+  border-bottom: 1px solid #EE3465;
+  background-image: url(../../images/find-icon-error.svg);
+}
+
+.searchigForm__error {
+  height: 30px;
+  text-align: center;
+  color: #EE3465;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 30px;
+  max-width: 100%;
+  opacity: 0;
+  transition: opacity .3s ease-in;
+}
+
+.searchigForm__error_show {
+  opacity: 1;
 }
 
 .searchigForm__submit {
@@ -102,6 +126,7 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 20px;
   padding: 0;
   margin: 0;
   opacity: 0;
@@ -142,6 +167,7 @@
   transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
 }
 
+
  .searchigForm__checkbox:active + .searchigForm__knobs:before {
   width: 20px;
   border-radius: 20px;
@@ -164,7 +190,7 @@
 
 
 @media screen and (max-width: 560px) {
-  .searchigForm__input {
+  .searchigForm__input:focus {
     background-image: none;
     text-align: left;
   }

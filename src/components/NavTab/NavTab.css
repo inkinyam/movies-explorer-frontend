@@ -58,16 +58,9 @@
   cursor: pointer;
 }
 
-.navtab__title {
-  max-width: 100%;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  margin: 105px 0 58px;
-}
 
 .navtab__links {
+  margin: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
