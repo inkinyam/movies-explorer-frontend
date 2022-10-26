@@ -14,6 +14,17 @@
   height: 327px;
   border-radius: 10px;
   overflow: hidden;
+  border: 2px solid white;
+
+  box-shadow:  0 0 2px rgba(255,255,255,.4),
+               0 0 4px rgba(255,255,255,.4),
+               0 0 5px rgba(255,255,255,.4),
+               0 0 10px rgba(66,220,219,.4),
+               0 0 15px rgba(66,220,219,.4),
+               0 0 20px rgba(66,220,219,.4),
+               0 0 30px rgba(66,220,219,.3),
+               0 0 60px rgba(66,220,219,.1);
+
 }
 
 .aboutMe__about { 
@@ -69,13 +80,13 @@
   font-size: 14px;
   line-height: 17px;
   text-decoration: none;
-  color: black;
+  color: var(--light-accent);
   opacity: 1;
-  transition: opacity 0.3s ease-in;
+  transition: color 0.3s ease-in;
 }
 
 .aboutMe__link:hover {
-  opacity: 0.7;
+color: var(--dark-accent);
 }
 
 @media screen and (max-width: 769px) {

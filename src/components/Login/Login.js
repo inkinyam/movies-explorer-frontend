@@ -1,7 +1,7 @@
 import React from 'react';
 import MainLogo from '../../images/main-logo.svg';
 import { Link } from 'react-router-dom';
-import { useInputValidator } from '../../utils/customHooks/inputValidator';
+import { useInputValidator } from '../../utils/customHooks/useInputValidator';
 
 const Login = ({onLogin, textError, loggedIn}) => {
   const [isValid, setIsValid] = React.useState(false);

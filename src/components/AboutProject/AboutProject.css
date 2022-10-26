@@ -37,8 +37,8 @@
   width: 90%;
   max-width: 1140px;
   height: 36px;
-  background-color: #F2F2F2;
-
+  background-color: var(--light-textcolor);
+  color: var(--light-bg);
   list-style: none;
   margin: 0 auto;
   padding: 0;
@@ -56,7 +56,7 @@
 }
 
 .aboutProject__timeline-item:nth-of-type(1) {
-  background-color: #2BE080;
+  background-color: var(--light-accent);
   max-width: 228px;
 }
 
@@ -66,7 +66,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #A0A0A0;
+  color: var(--dark-accent);
   bottom: -35px;
   left: 50%;
   transform: translate(-50%, -50%);

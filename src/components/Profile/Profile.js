@@ -2,7 +2,7 @@ import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import Preloader from '../Preloader/Preloader';
 import { CurrentUserContext } from '../../context/CurrentUserContext'; 
-import { useInputValidator } from '../../utils/customHooks/inputValidator';
+import { useInputValidator } from '../../utils/customHooks/useInputValidator';
 
 const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
   const currentUser             = React.useContext(CurrentUserContext);
@@ -79,7 +79,7 @@ const Profile = ({onUpdateUser ,onSignOut, isLoading}) => {
     <>
     <Navigation />
     <section className="profile" >
-      <h2 className="profile__title">Привет, {currentUser.name}</h2>
+      <h2 className="profile__title">Привет, <span className='profile__title-accent'>{currentUser.name}</span></h2>
 
       <form className="profile__form" noValidate onSubmit={handleSubmit}>
         <div className="profile__form-block">

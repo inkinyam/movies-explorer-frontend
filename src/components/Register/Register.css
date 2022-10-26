@@ -46,7 +46,7 @@
   height: 46px;
   border: none;
   outline: none;
-  background-color: #F9F9F9;;
+  background-color: #F9F9F9;
   border-radius: 8px;
   box-sizing: border-box;
   padding: 15px;
@@ -56,20 +56,14 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
+  position: relative;
+  color: var(--dark-accent);
 }
 
 
-
-.auth__input:focus {
-  background-color: rgba(43, 224, 128, .1);
-}
 
 .auth__input_error {
   color:#EE3465
-}
-
-.auth__input_error.auth__input:focus {
-  background-color: rgba(224, 67, 43, 0.1);
 }
 
 .auth__err {
@@ -91,10 +85,10 @@
 .auth__submit {
   border: none;
   outline: none;
-  background-color: #2BE080;
+  background-color: var(--light-accent);
+  color: var(--dark-bg);
   border-radius: 3px;
 
-  color: #fff;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -105,11 +99,12 @@
   margin-top: auto;
 
   opacity: 1;
-  transition: opacity .2s ease-in;
+  transition: opacity, color .2s ease-in;
 }
 
 .auth__submit_disabled {
-  opacity: .6;
+  opacity: .8;
+  color: var(--dark-accent);
   pointer-events: none;
 }
 
@@ -152,7 +147,8 @@
 }
 
 .auth__link {
-  color: #2BE080;
+  color: var(--light-accent);
+  text-shadow: 1px 1px var(--dark-bg);
   text-decoration: none;
   opacity: 1;
   transition: opacity .2s ease-in;

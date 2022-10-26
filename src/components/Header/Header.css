@@ -1,6 +1,6 @@
 .header {
-  background-color: #5C5C5C;
-  width: 100%;
+  background-color: var(--light-bg);
+   width: 100%;
   height: 74px;
   display: flex;
   align-items: center;
@@ -36,10 +36,11 @@
   height: 32px;
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
   text-decoration: none;
   transition: all 0.3s ease-in;
+  
 }
 
 .header__link:hover {
@@ -48,11 +49,12 @@
 
 .header__link_v_register {
   color: #FFFFFF;
+  text-shadow: 1px 1px var(--dark-bg);
 }
 
 
 .header__link_v_login {
-  background-color: #2BE080;
+  background-color: var(--light-accent);
   border-radius: 3px;
   color: #000;
 }

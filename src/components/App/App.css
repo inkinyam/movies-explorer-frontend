@@ -1,6 +1,6 @@
 .app {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  background-color: var(--light-bg);
+  color: var(--light-textcolor);
   font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   text-rendering: optimizeLegibility;
@@ -10,4 +10,12 @@
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
+}
+
+:root {
+  --dark-bg: #0B0C10;
+  --light-bg:  #1F2833;
+  --light-textcolor: #C5C6C7;
+  --light-accent: #66FCF1;
+  --dark-accent:  #45A29E;
 }

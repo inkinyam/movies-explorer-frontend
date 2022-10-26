@@ -1,7 +1,7 @@
 .section-title {
   width: 90%;
   max-width: 1140px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--light-accent);
 
   margin: 0 auto;
   padding-bottom: 23px;

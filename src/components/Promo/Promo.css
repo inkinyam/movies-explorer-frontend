@@ -1,7 +1,4 @@
 .promo {
-  background-color: #5C5C5C;
-  color: #fff;
-
   box-sizing: border-box;
   padding: 75px 0;
 }
@@ -29,10 +26,11 @@
 
 .promo__title {
   font-style: normal;
-  font-weight: 400;
-  font-size: 50px;
-  line-height: 58px;
+  font-weight: 600;
+  font-size: 60px;
+  line-height: 68px;
   margin: 0 0 36px;
+  color: var(--light-accent);
 }
 
 .promo__subtitle {
@@ -62,8 +60,7 @@
   width: 129px;
   height: 36px;
   border-radius: 3px;
-  border: 1px solid #fff;
-  opacity: 0.6;
+  border: 1px solid var(--light-accent);
   background-color: transparent;
   text-decoration: none;
   text-align: center; 
@@ -72,7 +69,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 36px;
-  color: #fff;
+  color: var(--light-textcolor);
   transition: opacity 0.3s ease-in;
 }
 
