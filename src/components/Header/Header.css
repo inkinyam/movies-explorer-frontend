@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.header_hide {
+  display: none;
+}
+
 .header__containter {
   width: 90%;
   max-width: 1140px;

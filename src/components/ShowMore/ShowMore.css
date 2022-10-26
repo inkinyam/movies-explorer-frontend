@@ -1,0 +1,38 @@
+
+.showmore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F9F9F9;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 40px auto 0;
+
+  width: 320px;
+  height: 36px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  opacity: 1;
+  transition: opacity .2s ease-in;
+}
+
+.showmore:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.showmore_hide {
+  display: none;
+}
+
+@media screen and (max-width: 580px) {
+  .showmore {
+    width: 240px;
+  }
+  
+}

@@ -15,9 +15,10 @@
 
 ### Проект можно увидеть по ссылке:
 
-GitHub Pages: `https://inkinyam.github.io/movies-explorer-frontend/`
 
-Проект **будет** доступен по адресу: `movies.inkinyam.nomoredomains.sbs`
+Проект доступен по адресу: `https://movies.inkinyam.nomoredomains.sbs`
+
+Пулл реквест для ревью: `https://github.com/inkinyam/movies-explorer-frontend/pull/2`
 
 ### Инструменты, используемые в работы:
 
@@ -64,4 +65,5 @@ GitHub Pages: `https://inkinyam.github.io/movies-explorer-frontend/`
 🔹 npm run build — собирает production-версию приложения
 
 ### Статус работы
-⚙ в работе
+Диплом защищен.
+Доработки.

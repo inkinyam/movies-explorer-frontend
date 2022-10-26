@@ -1,4 +1,7 @@
- class Api {
+
+ import { SERVER_URL } from "./consts";
+
+ class mainApi {
   constructor (baseUrl, {headers}) {
     this.baseUrl = baseUrl;
     this.headers = headers;
@@ -19,13 +22,6 @@
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-//метод, который реализует получение карточки с сервера
-  getCards () {
-    return fetch (`${this.baseUrl}/cards`, {
-      headers: {...this.headers, ...this._getHeaders()},
-    })
-    .then (res => {return this._checkRes(res)})
-  }
 
  // метод, который реализует получение данные пользователя с сервера
   getUserData () {
@@ -36,67 +32,60 @@
   }
 
  // метод, который реализует редактирование данных пользователя на сервере
-  postUserData (userName, about){
+  postUserData (userName, email){
     return fetch (`${this.baseUrl}/users/me`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'PATCH',
-      body: JSON.stringify({name: userName, about: about}),
+      body: JSON.stringify({name: userName, email: email}),
     })
     .then (res => {return this._checkRes(res)})
   }
 
-  //  метод, который реализует редактирование автара пользователя на сервере
-  postUserPhoto (link){
-    return fetch (`${this.baseUrl}/users/me/avatar`, {
+  //метод, который реализует получение карточки с сервера
+  getSavedMovies () {
+    return fetch (`${this.baseUrl}/movies`, {
       headers: {...this.headers, ...this._getHeaders()},
-      method: 'PATCH',
-      body: JSON.stringify({avatar: link}),
     })
     .then (res => {return this._checkRes(res)})
   }
 
 // метод, который реализует отправление карточки на сервер
-  postCard (cardName, link){
-    return fetch (`${this.baseUrl}/cards`, {
+  saveMovie (movie){
+    return fetch (`${this.baseUrl}/movies`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'POST',
-      body: JSON.stringify({name: cardName, link: link}),
+      body: JSON.stringify({country: movie.country, 
+                            director: movie.director, 
+                            duration: movie.duration,
+                            year: movie.year, 
+                            description: movie.description, 
+                            image: movie.image, 
+                            trailerLink: movie.trailerLink, 
+                            thumbnail: movie.thumbnail, 
+                            nameRU: movie.nameRU, 
+                            nameEN: movie.nameEN,
+                            movieId: movie.movieId
+                          }),
     })
     .then (res => {return this._checkRes(res)})
   }
 
-// метод, который реализует установку лайка на карточку
-  putLike (cardId){
-    return fetch (`${this.baseUrl}/cards/${cardId}/likes`, {
-      headers: {...this.headers, ...this._getHeaders()},
-      method: 'PUT',
-    })
-    .then (res => {return this._checkRes(res)})
-  }
 
 // метод, который реализует удаление лайка с карточки
-  deleteLike (cardId){
-    return fetch (`${this.baseUrl}/cards/${cardId}/likes`, {
+  unsaveMovie (moviedId){
+    return fetch (`${this.baseUrl}/movies/${moviedId}`, {
       headers: {...this.headers, ...this._getHeaders()},
       method: 'DELETE',
     })
     .then (res => {return this._checkRes(res)})
   }
-
-// метод, который реализует удаление карточки с сервера  
-  deleteCard (cardId) {
-    return fetch (`${this.baseUrl}/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: {...this.headers, ...this._getHeaders()},
-    })
-    .then (res => {return this._checkRes(res)})
-  }
-}
+ }
 
 /*создаем и экспортируем экземпляр класса api для использования в App*/ 
-const api = new Api ('https://api.inkinyam.nomoredomains.sbs', {
+const api = new mainApi (SERVER_URL, {
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'http://localhost:3000'
   }
 })
 

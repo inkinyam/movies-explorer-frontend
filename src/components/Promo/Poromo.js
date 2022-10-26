@@ -1,4 +1,7 @@
+import { Link } from "react-scroll";
+
 import Logo from "../../images/promo-logo.svg"
+
 
 const Promo = () => {
   return (
@@ -13,7 +16,7 @@ const Promo = () => {
            <img src={Logo} alt="logo" className="promo__logo-img"></img>
           </div>
         </div>
-        <button type="button" className="promo__btn">Узнать больше</button>
+        <Link smooth={true} to="aboutme" className="promo__btn">Узнать больше</Link>
       </div>
     </section>
   )

@@ -20,11 +20,13 @@
 
   box-sizing: border-box;
   padding: 14px;
+  min-height: 86px;
 }
 
 .movieCard__text {
   display: flex;
   flex-direction: column;
+  max-width: 80%;
 }
 
 .movieCard__title {
@@ -43,6 +45,7 @@
   color: #A0A0A0;
   margin: 0;
 }
+
 
 .movieCard__save {
   width: 30px;
@@ -74,11 +77,16 @@
 }
 
 .movieCard__img {
-  width: auto;
-  height: 100%;
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: block;
   background-color: rgb(172, 172, 172);
 
-  max-height: 203px;
   object-fit: cover;
   object-position: center;
+}
+
+.movieCard__link {
+  text-decoration: none;
+  color: inherit;
 }
